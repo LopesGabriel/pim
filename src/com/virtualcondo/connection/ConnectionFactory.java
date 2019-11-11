@@ -11,19 +11,9 @@ public class ConnectionFactory {
 	private Connection connection;
 
 	public ConnectionFactory(){
-		this.user = "AutenticadorHM";
-		this.pass = "HarDMoD";
-		this.banco = "jdbc:mysql://localhost:3306/minehardmod?useTimezone=true&serverTimezone=UTC";
-/*		this.user = "gabriel";
-		this.pass = "Biellindo3-";
-		this.banco = "jdbc:mysql://149.56.170.143:3306/minehardmod?useTimezone=true&serverTimezone=UTC";*/
-		conectar();
-	}
-
-	public ConnectionFactory(String user, String pass, String banco) {
-		this.user = user;
-		this.pass = pass;
-		this.banco = "jdbc:mysql://localhost:3306/" + banco;
+		this.user = "virtualcondo";
+		this.pass = "pim4sem";
+		this.banco = "jdbc:mysql://localhost:3306/";
 		conectar();
 	}
 
