@@ -10,6 +10,10 @@ public class Visitante {
 
 	public Visitante() {}
 
+	public Visitante(Integer id) {
+		this.id = id;
+	}
+
 	public Visitante(Integer id, String nome, String cpf, String rg, String telefone) {
 		super();
 		this.id = id;
