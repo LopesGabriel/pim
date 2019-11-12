@@ -51,7 +51,7 @@
 	            <a class="nav-link js-scroll-trigger" href="#contact">Contato</a>
 	          </li>
 	          <li class="nav-item">
-	            <a class="nav-link js-scroll-trigger active" href="login.html">Fazer login</a>
+	            <a class="nav-link js-scroll-trigger active" href="/virtualcondo/login">Fazer login</a>
 	          </li>
 	        </ul>
 	      </div>

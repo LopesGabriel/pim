@@ -23,6 +23,19 @@ public class Usuario {
 		this.id = id;
 	}
 
+	public Usuario(Integer id, String nome, String senha, String email, String cpf, String rg, TipoUsu tipoUsu,
+			Veiculo veiculo) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.senha = senha;
+		this.email = email;
+		this.cpf = cpf;
+		this.rg = rg;
+		this.tipoUsu = tipoUsu;
+		this.veiculo = veiculo;
+	}
+
 	// Getters and Setters
 
 	public Integer getId() {

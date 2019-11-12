@@ -1,5 +1,8 @@
 package com.virtualcondo.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Visitante {
 
 	private Integer id;
@@ -7,6 +10,8 @@ public class Visitante {
 	private String cpf;
 	private String rg;
 	private String telefone;
+
+	List<Visita> visitas = new ArrayList<Visita>();
 
 	public Visitante() {}
 
@@ -61,6 +66,14 @@ public class Visitante {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public List<Visita> getVisitas() {
+		return visitas;
+	}
+
+	public void setVisitas(List<Visita> visitas) {
+		this.visitas = visitas;
 	}
 
 }
