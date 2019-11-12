@@ -1,5 +1,8 @@
 package com.virtualcondo.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Usuario {
 
 	private Integer id;
@@ -12,7 +15,13 @@ public class Usuario {
 	private TipoUsu tipoUsu;
 	private Veiculo veiculo;
 
+	private List<Mensagem> mensagens = new ArrayList<Mensagem>();
+
 	public Usuario() {}
+
+	public Usuario(Integer id) {
+		this.id = id;
+	}
 
 	// Getters and Setters
 
@@ -78,6 +87,14 @@ public class Usuario {
 
 	public void setVeiculo(Veiculo veiculo) {
 		this.veiculo = veiculo;
+	}
+
+	public List<Mensagem> getMensagens() {
+		return mensagens;
+	}
+
+	public void setMensagens(List<Mensagem> mensagens) {
+		this.mensagens = mensagens;
 	}
 
 }
