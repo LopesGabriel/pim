@@ -58,7 +58,7 @@ public class Login extends HttpServlet {
 
 			request.setAttribute("msg", "Email ou senha incorreto.");
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
-			view.forward(request, response);	
+			view.forward(request, response);
 
 		}
 

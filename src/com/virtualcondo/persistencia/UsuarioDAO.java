@@ -22,7 +22,7 @@ public class UsuarioDAO {
 						+ "b.marca, b.placa, b.vaga, "
 						+ "c.nivel_acesso, c.nom_cargo "
 					+ "From virtual_condo.usuario As a "
-					+ "Left Join virtual_condo.veiculo As b On a.veiculo_id_veiculo = veiculo "
+					+ "Left Join virtual_condo.veiculo As b On a.veiculo_id_veiculo = b.id_veiculo "
 					+ "Left Join virtual_condo.tipo_usuario As c On a.tipo_usuario_id = c.id_tipo_usu "
 					+ "Where a.senha = SHA2(?, 224) And a.email = ?";
 

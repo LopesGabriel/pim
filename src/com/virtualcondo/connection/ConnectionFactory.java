@@ -13,7 +13,7 @@ public class ConnectionFactory {
 	public ConnectionFactory(){
 		this.user = "virtualcondo";
 		this.pass = "pim4sem";
-		this.banco = "jdbc:mysql://localhost:3306/";
+		this.banco = "jdbc:mysql://localhost:3306?useTimezone=true&serverTimezone=UTC";
 		conectar();
 	}
 

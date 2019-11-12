@@ -26,19 +26,24 @@
 	    <div class="card card-login mx-auto mt-5">
 	      <div class="card-header">Login</div>
 	      <div class="card-body">
-	        <form>
+	        <form action="/virtualcondo/login" method="post">
 	          <div class="form-group">
 	            <div class="form-label-group">
-	              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
+	              <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus="autofocus">
 	              <label for="inputEmail">Endereço de E-mail</label>
 	            </div>
 	          </div>
 	          <div class="form-group">
 	            <div class="form-label-group">
-	              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+	              <input type="password" id="inputPassword" name="senha" class="form-control" placeholder="Password" required>
 	              <label for="inputPassword">Senha</label>
 	            </div>
 	          </div>
+	          <c:if test="${msg != null}"><small class="text-danger">${msg}</small></c:if>
+	          <div class="float-right">
+		          <input type="submit" class="btn btn-success" value="Entrar">
+		          <a href="/virtualcondo" class="btn btn-danger">Voltar</a>
+			  </div>
 	        </form>
 	      </div>
 	    </div>
