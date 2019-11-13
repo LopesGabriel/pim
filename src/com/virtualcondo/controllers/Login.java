@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.virtualcondo.models.Usuario;
 import com.virtualcondo.persistencia.UsuarioDAO;
+import com.virtualcondo.persistencia.VisitaDAO;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
@@ -42,6 +43,7 @@ public class Login extends HttpServlet {
 
 			if(u.getTipoUsu().getId() == 1) {
 				RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/morador/index-morador.jsp");
+				request.setAttribute("visitas", new VisitaDAO().listarVisitasMorador(u.getId()));
 				view.forward(request, response);	
 			}
 			else if(u.getTipoUsu().getId() == 2) {

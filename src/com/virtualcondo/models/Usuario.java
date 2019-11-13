@@ -22,7 +22,7 @@ public class Usuario {
 	public Usuario(Integer id) {
 		this.id = id;
 	}
-
+	
 	public Usuario(Integer id, String nome, String senha, String email, String cpf, String rg, TipoUsu tipoUsu,
 			Veiculo veiculo) {
 		super();

@@ -168,5 +168,52 @@ public class VisitaDAO {
 		return lista;
 
 	}
+	
+	public List<Visita> listarVisitasMorador(Integer user){
+
+		List<Visita> lista = new ArrayList<Visita>();
+		String sql = "SELECT\n" + 
+				"	a.id_visita, a.visitante_id, a.usuario_id AS responsavel, a.data_entrada, a.data_saida,\n" + 
+				"    b.nome, b.cpf, b.rg, b.telefone,\n" + 
+				"    c.id_usuario\n" + 
+				"FROM\n" + 
+				"	virtual_condo.visitante_has_usuario AS a\n" + 
+				"LEFT JOIN\n" + 
+				"	virtual_condo.usuario as c ON a.usuario_id = c.id_usuario \n" + 
+				"LEFT JOIN\n" + 
+				"	virtual_condo.visitante AS b ON a.visitante_id = b.id_visitante\n" + 
+				"WHERE\n" + 
+				"	a.usuario_id = ?";
+		System.out.println(sql);
+
+		try {
+
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setInt(1, user);
+			ResultSet rs = st.executeQuery();
+
+			while(rs.next()) {
+
+				Visitante visitante = new Visitante(rs.getInt("visitante_id"), rs.getString("nome"), rs.getString("cpf"), rs.getString("rg"), rs.getString("telefone"));
+				Usuario u = new Usuario(rs.getInt("responsavel"));
+
+				Visita v = new Visita(rs.getInt("id_visita"), visitante, u, rs.getTimestamp("data_entrada"), rs.getTimestamp("data_saida"));
+
+				lista.add(v);
+			}
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(!connectionReciclada) connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return lista;
+
+	}
 
 }
