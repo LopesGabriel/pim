@@ -5,10 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.virtualcondo.connection.ConnectionFactory;
 import com.virtualcondo.models.Usuario;
 import com.virtualcondo.models.Visita;
+import com.virtualcondo.models.Visitante;
 
 public class VisitaDAO {
 
@@ -118,6 +121,52 @@ public class VisitaDAO {
 		}
 
 		return v;
+	}
+
+	public List<Visita> listarVisitas(){
+
+		List<Visita> lista = new ArrayList<Visita>();
+		String sql = "Select\r\n" + 
+			"	a.id_visita, a.visitante_id, a.usuario_id As responsavel_id, a.data_entrada, a.data_saida,\r\n" + 
+			"    b.nome, b.cpf, b.rg, b.telefone,\r\n" + 
+			"    c.nome As responsavel\r\n" + 
+			"From \r\n" + 
+			"	virtual_condo.visitante_has_usuario As a\r\n" + 
+			"Left Join\r\n" + 
+			"	virtual_condo.visitante As b On a.visitante_id = b.id_visitante\r\n" + 
+			"Left Join \r\n" + 
+			"	virtual_condo.usuario As c On a.usuario_id = c.id_usuario\r\n" + 
+			"Order By data_entrada Asc";
+		System.out.println(sql);
+
+		try {
+
+			PreparedStatement st = connection.prepareStatement(sql);
+			ResultSet rs = st.executeQuery();
+
+			while(rs.next()) {
+
+				Visitante visitante = new Visitante(rs.getInt("visitante_id"), rs.getString("nome"), rs.getString("cpf"), rs.getString("rg"), rs.getString("telefone"));
+				Usuario u = new Usuario(rs.getInt("responsavel_id"));
+				u.setNome(rs.getString("responsavel"));
+
+				Visita v = new Visita(rs.getInt("id_visita"), visitante, u, rs.getTimestamp("data_entrada"), rs.getTimestamp("data_saida"));
+
+				lista.add(v);
+			}
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(!connectionReciclada) connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return lista;
+
 	}
 
 }
