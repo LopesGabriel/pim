@@ -121,30 +121,30 @@
 	              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                <thead>
 	                  <tr>
-	                    <th>Nome</th>
-	                    <th>Dia da entrada</th>
-	                    <th>Hora de entrada</th>
-	                    <th>Hora de saida</th>
-	                    <th>Id do visitante</th>
+	                    <th>Visitante</th>
+	                    <th>Data e hora de chegada</th>
+	                    <th>Data e hora de saida</th>
 	                  </tr>
 	                </thead>
 	                <tfoot>
 	                  <tr>
-	                    <th>Nome</th>
-	                    <th>Dia da entrada</th>
-	                    <th>Hora de entrada</th>
-	                    <th>Hora de saida</th>
-	                    <th>Id do visitante</th>
+	                    <th>Visitante</th>
+	                    <th>Data e hora de chegada</th>
+	                    <th>Data e hora de saida</th>
 	                  </tr>
 	                </tfoot>
 	                <tbody>
+	                <c:forEach items="${visitas}" var="visita">
 	                  <tr>
-	                    <td>Tiger Nixon</td>
-	                    <td>2011/04/25</td>
-	                    <td>12:30</td>
-	                    <td>13:20</td>
-	                    <td>58</td>
+	                    <td>${visita.visitante.nome}</td> 
+	                    <td>
+	                    	<fmt:formatDate value="${visita.dtEntrada}" pattern="dd/MM/yyyy HH:mm"/>
+	                    </td>
+	                    <td>
+	                    	<fmt:formatDate value="${visita.dtSaida}" pattern="dd/MM/yyyy HH:mm"/>
+	                    </td>
 	                  </tr>
+	                </c:forEach>
 	                </tbody>
 	              </table>
 	            </div>
