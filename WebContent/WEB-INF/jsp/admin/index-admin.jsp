@@ -145,7 +145,7 @@
                 <div class="card-body-icon">
                   <i class="fas fa-users"></i>
                 </div>
-                <div class="mr-5">52 moradores cadastrados!</div>
+                <div class="mr-5"><c:out value="${adminPage.moradoresCadastrados}"></c:out> moradores cadastrados!</div>
               </div>
               <a class="card-footer text-white clearfix small z-1" href="moradores-lista.html">
                 <span class="float-left">Administrar moradores</span>
@@ -161,7 +161,7 @@
                 <div class="card-body-icon">
                   <i class="fas fa-briefcase"></i>
                 </div>
-                <div class="mr-5">3 colaboradores cadastrados!</div>
+                <div class="mr-5"><c:out value="${adminPage.colaboradoresCadastrados}"></c:out> colaboradores cadastrados!</div>
               </div>
               <a class="card-footer text-white clearfix small z-1" href="colaborador-lista.html">
                 <span class="float-left">Administrar colaboradores</span>
@@ -177,7 +177,7 @@
                 <div class="card-body-icon">
                   <i class="fas fa-user-friends"></i>
                 </div>
-                <div class="mr-5">325 visitantes cadastrados!</div>
+                <div class="mr-5"><c:out value="${adminPage.visitantesCadastrados}"></c:out> visitantes cadastrados!</div>
               </div>
               <a class="card-footer text-white clearfix small z-1" href="visitante-lista.html">
                 <span class="float-left">Administrar visitantes</span>
@@ -193,7 +193,7 @@
                 <div class="card-body-icon">
                   <i class="fas fa-car"></i>
                 </div>
-                <div class="mr-5">33 veículos cadastrados!</div>
+                <div class="mr-5"><c:out value="${adminPage.veiculosCadastrados}"></c:out> veículos cadastrados!</div>
               </div>
               <a class="card-footer text-white clearfix small z-1" href="veiculo-lista.html">
                 <span class="float-left">Administrar veículos</span>
@@ -203,17 +203,6 @@
               </a>
             </div>
           </div>
-        </div>
-
-        <!-- Area Chart Example-->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-chart-area"></i>
-            Gráfico de visitantes</div>
-          <div class="card-body">
-            <canvas id="myAreaChart" width="100%" height="30"></canvas>
-          </div>
-          <div class="card-footer small text-muted">Ultima atualização dia 30/04</div>
         </div>
 
         <!-- DataTables Example -->
@@ -226,169 +215,33 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th>Nome</th>
-                    <th>Dia da entrada</th>
-                    <th>Apartamento visitado</th>
-                    <th>Hora de entrada</th>
-                    <th>Hora de saída</th>
-                    <th>Número de visitas</th>
+                    <th>Visitante</th>
+                    <th>Responsável</th>
+                    <th>Data e Hora de entrada</th>
+                    <th>Data e Hora de saida</th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
-                    <th>Nome</th>
-                    <th>Dia da entrada</th>
-                    <th>Apartamento visitado</th>
-                    <th>Hora de entrada</th>
-                    <th>Hora de saída</th>
-                    <th>Número de visitas</th>
+                    <th>Visitante</th>
+                    <th>Responsável</th>
+                    <th>Data e Hora de entrada</th>
+                    <th>Data e Hora de saida</th>
                   </tr>
                 </tfoot>
                 <tbody>
-                  <tr>
-                    <td>Tiger Nixon</td>
-                    <td>01/04/2019</td>
-                    <td>33</td>
-                    <td>09:25</td>
-                    <td>10:02</td>
-                    <td>1</td>
-                  </tr>
-                    <tr>
-                    <td>Silvio Suguino</td>
-                    <td>02/04/2019</td>
-                    <td>35</td>
-                    <td>10:33</td>
-                    <td>10:59</td>
-                    <td>3</td>
-                  </tr>
-                    <tr>
-                    <td>Gabriel de Oliveira</td>
-                    <td>15/04/2019</td>
-                    <td>11</td>
-                    <td>14:25</td>
-                    <td>16:02</td>
-                    <td>5</td>
-                  </tr>
-                    <tr>
-                    <td>Pedro Batata</td>
-                    <td>07/04/2019</td>
-                    <td>23</td>
-                    <td>19:22</td>
-                    <td>01:04</td>
-                    <td>3</td>
-                  </tr>
-                    <tr>
-                    <td>Yan Músico</td>
-                    <td>03/04/2019</td>
-                    <td>30</td>
-                    <td>08:25</td>
-                    <td>10:10</td>
-                    <td>4</td>
-                  </tr>
-                    <tr>
-                    <td>Paulo Cesar</td>
-                    <td>22/04/2019</td>
-                    <td>33</td>
-                    <td>22:25</td>
-                    <td>08:12</td>
-                    <td>7</td>
-                  </tr>
-                    <tr>
-                    <td>Dr. Diego</td>
-                    <td>15/04/2019</td>
-                    <td>15</td>
-                    <td>09:25</td>
-                    <td>10:02</td>
-                    <td>1</td>
-                  </tr>
-                    <tr>
-                    <td>Indinária dos Santos</td>
-                    <td>15/04/2019</td>
-                    <td>11</td>
-                    <td>14:26</td>
-                    <td>16:02</td>
-                    <td>4</td>
-                  </tr>
-                    <tr>
-                    <td>Naruto Uzumaki</td>
-                    <td>17/04/2019</td>
-                    <td>02</td>
-                    <td>10:14</td>
-                    <td>13:17</td>
-                    <td>2</td>
-                  </tr>
-                    <tr>
-                    <td>Cristiano Ronaldo</td>
-                    <td>20/04/2019</td>
-                    <td>27</td>
-                    <td>07:25</td>
-                    <td>10:06</td>
-                    <td>1</td>
-                  </tr>
-                    <tr>
-                    <td>Paulo Lopes</td>
-                    <td>05/04/2019</td>
-                    <td>11</td>
-                    <td>11:25</td>
-                    <td>12:02</td>
-                    <td>3</td>
-                  </tr>
-                    <tr>
-                    <td>Sasuke Uchiha</td>
-                    <td>07/04/2019</td>
-                    <td>03</td>
-                    <td>09:25</td>
-                    <td>10:02</td>
-                    <td>7</td>
-                  </tr>
-                    <tr>
-                    <td>Nathalia Rios</td>
-                    <td>23/04/2019</td>
-                    <td>33</td>
-                    <td>09:25</td>
-                    <td>10:02</td>
-                    <td>6</td>
-                  </tr>
-                    <tr>
-                    <td>Humberto Roberto Adalberto</td>
-                    <td>04/04/2019</td>
-                    <td>33</td>
-                    <td>09:25</td>
-                    <td>10:02</td>
-                    <td>1</td>
-                  </tr>
-                    <tr>
-                    <td>Silvio Santos</td>
-                    <td>26/04/2019</td>
-                    <td>32</td>
-                    <td>09:25</td>
-                    <td>10:02</td>
-                    <td>1</td>
-                  </tr>
-                    <tr>
-                    <td>Pedro Paulo</td>
-                    <td>24/04/2019</td>
-                    <td>31</td>
-                    <td>09:25</td>
-                    <td>10:02</td>
-                    <td>1</td>
-                  </tr>
-                    <tr>
-                    <td>Prof. Fabiano</td>
-                    <td>01/04/2019</td>
-                    <td>20</td>
-                    <td>09:25</td>
-                    <td>10:02</td>
-                    <td>1</td>
-                  </tr>
-                    <tr>
-                    <td>Carlos Alberto</td>
-                    <td>02/04/2019</td>
-                    <td>26</td>
-                    <td>09:25</td>
-                    <td>10:02</td>
-                    <td>1</td>
-                  </tr>
+                	<c:forEach items="${adminPage.visitas}" var="visita">                	
+		                <tr>
+			                <td>${visita.visitante.nome}</td>
+			                <td>${visita.responsavel.nome}</td>
+			                <td>
+			                	<fmt:formatDate value="${visita.dtEntrada}" pattern="dd/MM/yyyy HH:mm"/>
+			                </td>
+			                <td>
+			                	<fmt:formatDate value="${visita.dtSaida}" pattern="dd/MM/yyyy HH:mm"/>
+			                </td>
+		                </tr>
+                	</c:forEach>
                 </tbody>
               </table>
             </div>

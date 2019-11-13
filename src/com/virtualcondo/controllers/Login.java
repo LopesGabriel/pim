@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.virtualcondo.models.IndexAdministrador;
 import com.virtualcondo.models.Usuario;
+import com.virtualcondo.persistencia.DAOAdministrador;
 import com.virtualcondo.persistencia.UsuarioDAO;
 import com.virtualcondo.persistencia.VisitaDAO;
 
@@ -42,11 +44,14 @@ public class Login extends HttpServlet {
 			session.setAttribute("Usuario", u);
 
 			if(u.getTipoUsu().getId() == 1) {
-				RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/morador/index-morador.jsp");
 				request.setAttribute("visitas", new VisitaDAO().listarVisitasMorador(u.getId()));
+				RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/morador/index-morador.jsp");
 				view.forward(request, response);	
 			}
 			else if(u.getTipoUsu().getId() == 2) {
+				IndexAdministrador iA = new DAOAdministrador().popularIndexAdmin();
+				iA.setVisitas(new VisitaDAO().listarVisitas());
+				request.setAttribute("adminPage", iA);
 				RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/admin/index-admin.jsp");
 				view.forward(request, response);	
 			}
