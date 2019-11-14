@@ -44,26 +44,25 @@
 	                </ol>
 	
 	                <!-- Page Content -->
-	                <form>
+	                <form action="/virtualcondo/cadastrar-veiculo" method="post">
 	                    <div class="form-label-group mb-3">
-	                        <input type="text" id="inputNome" class="form-control" placeholder="Nome" required autofocus>
-	                        <label for="inputNome">Marca</label>
+	                        <input type="text" id="marca" name="marca" class="form-control" placeholder="Marca" required autofocus>
+	                        <label for="marca">Marca</label>
 	                    </div> 
 	                    <div class="form-label-group mb-3">
-	                        <input type="text" id="inputCpf" class="form-control" placeholder="CPF">
-	                        <label for="inputCpf">Placa</label>
+	                        <input type="text" id="placa" name="placa" class="form-control" placeholder="Placa">
+	                        <label for="placa">Placa</label>
 	                    </div>
 	                    <div class="input-group mb-3">
-	                        <select class="custom-select" id="inputBloco">
-	                            <option selected>Vaga Estacionamento</option>
-	                            <option>1001</option>
-	                            <option>1002</option>
-	                            <option>1003</option>
-	                            <option>1004</option>
+	                        <select class="custom-select" id="vaga" name="vaga">
+	                        	<option selected>Vaga Estacionamento</option>
+	                        	<c:forEach items="${vagas}" var="v">
+	                        		<option>${v.vaga}</option>
+	                        	</c:forEach>
 	                        </select>
 	                    </div>
 	                    <div class="form-lavel-group mb-3 col-12 row">
-	                        <input type="button" id="inputSubmit" class="btn btn-primary form-control col-4" value="Confirmar">
+	                        <input type="submit" id="inputSubmit" class="btn btn-primary form-control col-4" value="Confirmar">
 	                        <span class="col-4"></span>
 	                        <input type="button" id="inputCancelar" class="btn btn-danger form-control col-4" value="Cancelar">
 	                    </div>

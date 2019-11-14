@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import com.virtualcondo.connection.ConnectionFactory;
 import com.virtualcondo.models.TipoUsu;
 import com.virtualcondo.models.Usuario;
+import com.virtualcondo.models.Vagas;
 import com.virtualcondo.models.Veiculo;
 
 public class UsuarioDAO {
@@ -17,14 +18,15 @@ public class UsuarioDAO {
 	public Usuario autenticarUsuario(String senha, String email) {
 
 		Usuario u = null;
-		String sql = "Select "
-						+ "a.id_usuario, a.nome, a.senha, a.email, a.cpf, a.rg, a.tipo_usuario_id, a.veiculo_id_veiculo as veiculo, "
-						+ "b.marca, b.placa, b.vaga, "
-						+ "c.nivel_acesso, c.nom_cargo "
-					+ "From virtual_condo.usuario As a "
-					+ "Left Join virtual_condo.veiculo As b On a.veiculo_id_veiculo = b.id_veiculo "
-					+ "Left Join virtual_condo.tipo_usuario As c On a.tipo_usuario_id = c.id_tipo_usu "
-					+ "Where a.senha = SHA2(?, 224) And a.email = ?";
+		String sql = "SELECT  a.id_usuario, a.nome, a.senha, a.email, a.cpf, a.rg, a.tipo_usuario_id, a.veiculo_id_veiculo AS veiculo, \n" + 
+				"		b.marca, b.placa, b.vaga AS veiculo_vaga_id, \n" + 
+				"        v.id_vaga, v.vaga AS vaga, v.em_uso,\n" + 
+				"		c.nivel_acesso, c.nom_cargo \n" + 
+				"FROM 	virtual_condo.usuario AS a \n" + 
+				"	LEFT JOIN virtual_condo.veiculo AS b ON a.veiculo_id_veiculo = b.id_veiculo \n" + 
+				"    LEFT JOIN virtual_condo.vagas AS v ON b.vaga = v.id_vaga\n" + 
+				"	LEFT JOIN virtual_condo.tipo_usuario AS c ON a.tipo_usuario_id = c.id_tipo_usu \n" + 
+				"WHERE 	a.senha = SHA2(?, 224) AND a.email = ?;";
 
 		try {
 
@@ -39,8 +41,10 @@ public class UsuarioDAO {
 				tU.setId(rs.getInt("tipo_usuario_id"));
 				tU.setNivelAcesso(rs.getString("nivel_acesso"));
 				tU.setCargo(rs.getString("nom_cargo"));
+				
+				Vagas vaga = new Vagas(rs.getInt("id_vaga"), rs.getString("vaga"), rs.getBoolean("em_uso"));
 
-				Veiculo v = new Veiculo(rs.getInt("veiculo"), rs.getString("marca"), rs.getString("placa"), rs.getString("vaga"));
+				Veiculo v = new Veiculo(rs.getInt("veiculo"), rs.getString("marca"), rs.getString("placa"), vaga);
 
 				u = new Usuario(
 					rs.getInt("id_usuario"),
@@ -67,5 +71,4 @@ public class UsuarioDAO {
 
 		return u;
 	}
-
 }

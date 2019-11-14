@@ -5,11 +5,11 @@ public class Veiculo {
 	private Integer id;
 	private String marca;
 	private String placa;
-	private String vaga;
+	private Vagas vaga;
 
 	public Veiculo() {}
 
-	public Veiculo(Integer id, String marca, String placa, String vaga) {
+	public Veiculo(Integer id, String marca, String placa, Vagas vaga) {
 		super();
 		this.id = id;
 		this.marca = marca;
@@ -41,11 +41,11 @@ public class Veiculo {
 		this.placa = placa;
 	}
 
-	public String getVaga() {
+	public Vagas getVaga() {
 		return vaga;
 	}
 
-	public void setVaga(String vaga) {
+	public void setVaga(Vagas vaga) {
 		this.vaga = vaga;
 	}
 

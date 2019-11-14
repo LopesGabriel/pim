@@ -9,16 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.virtualcondo.models.Usuario;
+import com.virtualcondo.persistencia.VeiculoDAO;
+
 @WebServlet("/veiculo")
-public class Veiculo extends HttpServlet {
+public class VeiculoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public Veiculo() {
+    public VeiculoServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		Usuario user = (Usuario) request.getSession().getAttribute("Usuario");
+		request.setAttribute("veiculosMorador", new VeiculoDAO().listarVeiculoMorador(user.getId()));
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/morador/veiculo-lista.jsp");
 		view.forward(request, response);
 		

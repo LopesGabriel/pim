@@ -68,7 +68,7 @@
                 </thead>
                 <tfoot>
                   <tr>
-                    <th>Modelo</th>
+                    <th>Marca</th>
                     <th>Vaga</th>
                     <th>Placa</th>
                     <th>Proprietário</th>
@@ -76,26 +76,28 @@
                   </tr>
                 </tfoot>
                 <tbody>
-                  <tr>
-                    <td>Ferrari</td>
-                    <td>1001</td>
-                    <td>GOD-9598</td>
-                    <td>Matheus de Oliveira Lopes</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-veiculo.html"><i class="fas fa-edit"> Editar</i></a>
-                    </td>
-                  </tr>
-                    <tr>
-                    <td>bugatti</td>
-                    <td>1004</td>
-                    <td>EXM-9598</td>
-                    <td>Matheus de Oliveira Lopes</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-veiculo.html"><i class="fas fa-edit"> Editar</i></a>
-                    </td>
-                  </tr>
+                	<c:choose>
+                		<c:when test="${ veiculosMorador.placa != null}">
+                			<tr>
+			                    <td>${veiculosMorador.marca}</td>
+			                    <td>${veiculosMorador.vaga.vaga}</td>
+			                    <td>${veiculosMorador.placa}</td>
+			                    <td>${Usuario.nome}</td>
+			                    <td>
+			                        <a href="/veiculo?acao=delete&id=${veiculosMorador.id}"><i class="fas fa-trash"> Deletar</i></a> |
+			                        <a href="/veiculo?acao=edit&id=${veiculosMorador.id}"><i class="fas fa-edit"> Editar</i></a>
+			                    </td>
+			                </tr>
+                		</c:when>
+	                  	<c:otherwise>
+	                  		<tr>
+			                    <td colspan="4">Você não possui um veículo registrado</td>
+			                    <td>
+			                        <a href="cadastrar-veiculo">Cadastrar Veículo</a>
+			                    </td>
+			                </tr>
+	                  	</c:otherwise>
+	                </c:choose>
                 </tbody>
               </table>
             </div>
