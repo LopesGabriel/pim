@@ -70,6 +70,33 @@ public class VeiculoDAO {
 
 	}
 	
+	public void deletarVeiculoMorador(Integer veiculo, Usuario user) {
+		String sql = "UPDATE virtual_condo.usuario SET veiculo_id_veiculo = null WHERE id_usuario = ?";
+		String sql1 = "DELETE FROM virtual_condo.veiculo WHERE id_veiculo = ?";
+		try {
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setInt(1, user.getVeiculo().getId());
+			st.execute();
+			
+			PreparedStatement st1 = connection.prepareStatement(sql1);
+			st1.setInt(1, veiculo);
+			st1.execute();
+		}catch(SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			}catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally {
+			try {
+				connection.commit();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public Veiculo listarVeiculoMorador(Integer id){
 		
 		Veiculo veiculo = null;

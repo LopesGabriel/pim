@@ -51,6 +51,28 @@ public class VagasDAO {
 		
 	}
 	
+	public void removerVagaEmUso(Integer id) {
+		String sql = "UPDATE virtual_condo.vagas SET em_uso = false WHERE id_vaga = ?";
+		try {
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setInt(1, id);
+			st.execute();
+		}catch(SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			}catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally {
+			try {
+				connection.commit();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public Vagas buscarVaga(String vaga) {
 		
 		Vagas v = new Vagas();

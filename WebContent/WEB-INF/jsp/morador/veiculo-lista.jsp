@@ -21,6 +21,20 @@
 	
 	<!-- Custom styles for this template-->
 	<link href="./resources/css/sb-admin.css" rel="stylesheet">
+	
+	<!-- Nosso estilo -->
+	<style>
+		.Clicar{
+			cursor: pointer;
+			color: #007bff;
+		}
+		
+		.Clicar:hover {
+			color: #01579b;
+			transition: 200ms;
+		
+		}
+	</style>
 </head>
 <body id="page-top">
 
@@ -84,7 +98,7 @@
 			                    <td>${veiculosMorador.placa}</td>
 			                    <td>${Usuario.nome}</td>
 			                    <td>
-			                        <a href="/veiculo?acao=delete&id=${veiculosMorador.id}"><i class="fas fa-trash"> Deletar</i></a> |
+			                        <span id="deletarVeiculo" data-id="${veiculosMorador.id}" class="fas fa-trash Clicar"> Deletar</span> |
 			                        <a href="/veiculo?acao=edit&id=${veiculosMorador.id}"><i class="fas fa-edit"> Editar</i></a>
 			                    </td>
 			                </tr>
@@ -155,6 +169,59 @@
 
   <!-- Custom scripts for all pages-->
   <script src="./resources/js/sb-admin.min.js"></script>
+  
+  <!-- BootBox JS -->
+  <script src="./vendor/bootbox/bootbox.min.js"></script>
+  <script src="./vendor/bootbox/bootbox.locales.min.js"></script>
+  <script>
+  	$(document).on("click", "#deletarVeiculo", function(e) {
+  		var confirmModal = bootbox.confirm({ 
+  		    size: "small",
+  		    title: "Deletar Veiculo",
+  		    message: "Tem certeza que deseja deletar esse veículo?",
+  		    buttons:{
+  		    	confirm:{
+  		    		label: 'Sim',
+  		    		className: 'btn-success'
+  		    	},
+  		    	cancel:{
+  		    		label: 'Não',
+  		    		className: 'btn-danger'
+  		    	}
+  		    },
+  		    callback: function(result){
+  		    	if(result){
+  		    		var id = $("#deletarVeiculo").data('id');
+  		    		$.ajax({
+  		    			url: '/virtualcondo/veiculo?id='+id,
+  		    			method: 'Delete',
+  		    			success: function(rs){
+  		    				confirmModal = bootbox.dialog({
+  		    					size: 'small',
+  		    					title: '<span class="text-success">Sucesso <i class="far fa-check-circle text-rigth"></i><span>',
+  		    					message: 'Veículo deletado com sucesso'
+  		    				})
+  		    			},
+  		    			error: function(e, xml, err){
+  		    				bootbox.dialog({
+  		    					size: 'small',
+  		    					title: 'Falha',
+  		    					message: 'Falha ao se comunicar com o servidor',
+  		    					buttons:{
+  		    						fechar:{
+  		    							label: 'Fechar',
+  		    							className: 'btn-danger',
+  		    							callback: function() {}
+  		    						}
+  		    					}
+  		    				});
+  		    			}
+  		    		});//Fim do Ajax
+  		    	} // Fim do if
+  		    }// Fim do Callback
+  		})
+    });
+  </script>
 
 </body>
 </html>
