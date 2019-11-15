@@ -166,4 +166,54 @@ public class UsuarioDAO {
 		}
 		return lista;
 	}
+
+	public Usuario buscarPorId(Integer id) {
+
+		Usuario u = null;
+		String sql = "Select\r\n" + 
+			"	a.id_usuario, a.nome, a.senha, a.email, a.cpf, a.rg, a.tipo_usuario_id, a.veiculo_id_veiculo,\r\n" + 
+			"    b.nivel_acesso, b.nom_cargo\r\n" + 
+			"From\r\n" + 
+			"	virtual_condo.usuario As a\r\n" + 
+			"Left Join \r\n" + 
+			"	virtual_condo.tipo_usuario As b On a.tipo_usuario_id = b.id_tipo_usu\r\n" + 
+			"Where a.id_usuario = " + id;
+
+		try {
+
+			PreparedStatement st = connection.prepareStatement(sql);
+			ResultSet rs = st.executeQuery();
+
+			if(rs.next()) {
+
+				TipoUsu tU = new TipoUsu();
+				tU.setId(rs.getInt("tipo_usuario_id"));
+				tU.setCargo(rs.getString("nom_cargo"));
+				tU.setNivelAcesso(rs.getString("nom_cargo"));
+
+				u = new Usuario(
+					rs.getInt("id_usuario"),
+					rs.getString("nome"),
+					rs.getString("senha"),
+					rs.getString("email"),
+					rs.getString("cpf"),
+					rs.getString("rg"),
+					tU,
+					null
+				);
+
+			}
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return u;
+
+	}
 }

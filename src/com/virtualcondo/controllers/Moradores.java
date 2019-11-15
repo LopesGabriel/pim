@@ -36,33 +36,29 @@ public class Moradores extends HttpServlet {
         	// Usuário é Síndico
         	if(u.getTipoUsu().getId() == 2) {
 
-        		// Caso informe um id
-        		if(id != null) {
+    			if(acao.equalsIgnoreCase("listar")) {
 
-        			
+    				List<Usuario> moradores = new UsuarioDAO().listarMoradores();
 
-        		}
-        		else {
+    				req.setAttribute("moradores", moradores);
+    				RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/lista-moradores.jsp");
+    				view.forward(req, res);
 
-        			if(acao.equalsIgnoreCase("listar")) {
+    			}
+    			else if(acao.equalsIgnoreCase("cadastrar")) {
 
-        				List<Usuario> moradores = new UsuarioDAO().listarMoradores();
+    				RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-morador.jsp");
+    				view.forward(req, res);
 
-        				req.setAttribute("moradores", moradores);
-        				RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/lista-moradores.jsp");
-        				view.forward(req, res);
-        				return;
+    			}
+    			else {
 
-        			}
-        			else if(acao.equalsIgnoreCase("cadastrar")) {
+    				Usuario user = new UsuarioDAO().buscarPorId(Integer.parseInt(id));
+    				req.setAttribute("user", user);
+    				RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/editar-morador.jsp");
+    				view.forward(req, res);
 
-        				RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-morador.jsp");
-        				view.forward(req, res);
-        				return;
-
-        			}
-
-        		}
+    			}
 
         	}
 

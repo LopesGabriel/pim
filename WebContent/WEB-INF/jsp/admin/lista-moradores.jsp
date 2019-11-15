@@ -80,7 +80,7 @@
 	                    <td>
 		                    <div class="mx-auto col-sm-12 col-lg-6">
 		                    	<a href="#" class="float-left"><i class="fas fa-trash"> Deletar</i></a>
-		                        <a href="editar-morador.html" class="float-right"><i class="fas fa-edit"> Editar</i></a>
+		                        <a href="/virtualcondo/moradores?acao=editar&id=${morador.id}" class="float-right"><i class="fas fa-edit"> Editar</i></a>
 		                    </div>
 	                    </td>
 	                  </tr>
