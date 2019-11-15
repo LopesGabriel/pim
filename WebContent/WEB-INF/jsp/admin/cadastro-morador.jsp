@@ -9,18 +9,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	  <link rel="icon" href="../resources/imgs/Logo2.png" type="image/icon">
+	  <link rel="icon" href="./resources/imgs/Logo2.png" type="image/icon">
 	
 	<title>Virtual Condo</title>
 	
 	<!-- Custom fonts for this template-->
-	<link href="../vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="./vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
 	
 	<!-- Page level plugin CSS-->
-	<link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+	<link href="./vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 	
 	<!-- Custom styles for this template-->
-	<link href="../resources/css/sb-admin.css" rel="stylesheet">
+	<link href="./resources/css/sb-admin.css" rel="stylesheet">
 </head>
 <body id="page-top">
 
@@ -38,7 +38,7 @@
 
           <div class="row"> 
             <!-- Breadcrumbs-->
-            <div class="col">
+            <div class="col-sm-12">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
                     <a href="index.html">Painel de Controle</a>
@@ -46,89 +46,49 @@
                   <li class="breadcrumb-item active">Cadastro de morador</li>
                 </ol>
 
+				<c:if test="${msg != null}">
+					<div class="alert alert-info" role="alert">
+					  ${msg}
+					</div>
+				</c:if>
+
                 <!-- Page Content -->
-                <form>
-                    <div class="form-label-group mb-3">
-                        <input type="text" id="inputNome" class="form-control" placeholder="Nome" required autofocus>
+                <form class="form-row" method="POST" action="/virtualcondo/moradores">
+                    <div class="form-label-group mb-3 col-sm-6 col-lg-4">
+                        <input type="text" id="inputNome" name="nome" class="form-control" placeholder="Nome" required autofocus>
                         <label for="inputNome">Nome</label>
                     </div> 
-                    <div class="form-label-group mb-3">
-                        <input type="text" id="inputCpf" class="form-control" placeholder="CPF">
+                    <div class="form-label-group mb-3 col-sm-6 col-lg-4">
+                        <input type="text" id="inputCpf" name="cpf" class="form-control" placeholder="CPF">
                         <label for="inputCpf">CPF</label>
                     </div>
-                    <div class="form-label-group mb-3">
-                        <input type="text" id="inputRg" class="form-control" placeholder="RG">
+                    <div class="form-label-group mb-3 col-sm-6 col-lg-4">
+                        <input type="text" id="inputRg" name="rg" class="form-control" placeholder="RG">
                         <label for="inputRg">RG</label>
                     </div>
-                    <div class="form-label-group mb-3">
-                        <input type="text" id="inputUnidade" class="form-control" placeholder="Unidade">
-                        <label for="inputUnidade">Unidade</label>
-                    </div>
-                    <div class="form-label-group mb-3">
-                        <input type="text" id="inputEmail" class="form-control" placeholder="E-mail">
+                    <div class="form-label-group mb-3 col-sm-6 col-lg-4">
+                        <input type="text" id="inputEmail" name="email" class="form-control" placeholder="E-mail">
                         <label for="inputEmail">E-mail</label>
                     </div>
-                    <div class="form-label-group mb-3">
-                        <input type="text" id="inputTelefone" class="form-control" placeholder="Telefone">
-                        <label for="inputTelefone">Telefone</label>
-                    </div>
-                    <div class="form-label-group mb-3">
-                        <input type="text" id="inputInterfone" class="form-control" placeholder="Interfone">
-                        <label for="inputInterfone">Interfone</label>
-                    </div>
-                    <div class="mb-3 row">
-                        <span class="col-1"></span>
-                      <label for="inputDate" class="col-5 col-form-label">Data de Nascimento:</label>
-                      <input class="form-control col-5" type="date" id="inputDate">
-                        <span class="col-1"></span>
-                    </div>
-                    <div class="form-label-group mb-3">
-                        <input type="password" id="inputSenha" class="form-control" placeholder="Senha">
+                    <div class="form-label-group mb-3 col-sm-6 col-lg-4">
+                        <input type="password" id="inputSenha" name="senha" class="form-control" placeholder="Senha">
                         <label for="inputSenha">Senha</label>
                     </div>
-                    <div class="form-label-group mb-3">
-                        <input type="password" id="inputConfirmarSenha" class="form-control" placeholder="Confirmar senha">
-                        <label for="inputConfirmarSenha">Confirmar senha</label>
-                    </div>
-                    <div class="input-group mb-3">
-                        <select class="custom-select" id="inputBloco">
+                    <div class="input-group mb-3 col-sm-6 col-lg-4">
+                        <select class="custom-select" name="tpMorador" id="inputBloco">
                             <option selected>Tipo de usuário</option>
-                            <option>Morador</option>
-                            <option>Administrador</option>
+                            <option value="1">Morador</option>
+                            <option value="2">Síndico</option>
                         </select>
                     </div>
-                    <div class="input-group mb-3">
-                        <select class="custom-select" id="inputBloco">
-                            <option selected>Bloco</option>
-                            <option>A</option>
-                            <option>B</option>
-                            <option>C</option>
-                        </select>
-                    </div>
+                    <div class="form-lavel-group mb-3 col-sm-12 col-lg-4 mx-auto">
+			          <input type="submit" id="inputSubmit" class="btn btn-primary form-control float-left col-sm-6 col-lg-5" value="Confirmar">
+			          <a class="btn btn-danger form-control float-right col-sm-6 col-lg-5" href="/virtualcondo/login">Cancelar</a>
+			        </div>
               </form>
             </div><!-- Col dos campos de texto -->
               
-            <div id="coluna2" class="col">
-                
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item active">Imagem de Perfil</li>
-                </ol>
-                
-                <img class="rounded mx-auto d-block mb-3" src="../resources/imgs/cadastro-img.jpg">
-                
-                <div class="form-group">
-                    <label for="exampleFormControlFile1">Adicionar imagem</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                </div>
-                
-            </div>
-              
         </div><!-- fim do row -->
-          <div class="form-lavel-group mb-3 col-12 row">
-            <input type="button" id="inputSubmit" class="btn btn-primary form-control col-4" value="Confirmar">
-            <span class="col-4"></span>
-            <input type="button" id="inputCancelar" class="btn btn-danger form-control col-4" value="Cancelar">
-          </div>
       </div><!-- fim do container -->
     </div>
       <!-- /.container-fluid -->
@@ -171,14 +131,14 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
   <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="../resources/js/sb-admin.min.js"></script>
+  <script src="./resources/js/sb-admin.min.js"></script>
 
 </body>
 </html>

@@ -74,6 +74,45 @@ public class UsuarioDAO {
 		return u;
 	}
 
+	public boolean salvarUsuario(Usuario u) {
+
+		boolean op = false;
+		String sql = "Insert Into virtual_condo.usuario(nome, email, cpf, rg, tipo_usuario_id, senha) \r\n" +
+			"Values(?, ?, ?, ?, ?, SHA2(?, 224))";
+
+		try {
+
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setString(1, u.getNome());
+			st.setString(2, u.getEmail());
+			st.setString(3, u.getCpf());
+			st.setString(4, u.getRg());
+			st.setInt(5, u.getTipoUsu().getId());
+			st.setString(6, u.getSenha());
+			st.execute();
+			op = true;
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+			op = false;
+			try {
+				connection.rollback();
+			}catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally {
+			try {
+				connection.commit();
+				connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return op;
+
+	}
+
 	public List<Usuario> listarMoradores(){
 
 		List<Usuario> lista = new ArrayList<Usuario>();

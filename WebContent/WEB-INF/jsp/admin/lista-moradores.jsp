@@ -14,13 +14,13 @@
 	<title>Virtual Condo</title>
 	
 	<!-- Custom fonts for this template-->
-	<link href="../vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="./vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
 	
 	<!-- Page level plugin CSS-->
-	<link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+	<link href="./vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 	
 	<!-- Custom styles for this template-->
-	<link href="../resources/css/sb-admin.css" rel="stylesheet">
+	<link href="./resources/css/sb-admin.css" rel="stylesheet">
 </head>
 <body id="page-top">
 
@@ -51,78 +51,40 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Registro de entrada</div>
+            Nome e Email</div>
           <div class="card-body">
               
-              <button type="button" style="margin-left: 2em; margin-bottom: 1em;" class="btn btn-info"><a style="color: #fff;" href="cadastro-morador.html">Cadastrar morador</a></button>
+          	<a class="btn btn-info mb-3" href="/virtualcondo/moradores?acao=cadastrar">Cadastrar morador</a>
               
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                     <th>Nome</th>
-                    <th>Apartamento</th>
-                    <th>Veiculo</th>
-                    <th>Número interfone</th>
-                    <th>Telefone</th>
-                    <th>Opções</th>
+                    <th>Email</th>
+                    <th class="text-center">Opções</th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
                     <th>Nome</th>
-                    <th>Apartamento</th>
-                    <th>Veiculo</th>
-                    <th>Número interfone</th>
-                    <th>Telefone</th>
-                    <th>Opções</th>
+                    <th>Email</th>
+                    <th class="text-center">Opções</th>
                   </tr>
                 </tfoot>
                 <tbody>
-                  <tr>
-                    <td>Gabriel de Oliveira</td>
-                    <td>01</td>
-                    <td>Bugatti Veyron</td>
-                    <td>01</td>
-                    <td>(61) 9 8235-2349</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-morador.html"><i class="fas fa-edit"> Editar</i></a>
-                    </td>
-                  </tr>
-                    <tr>
-                    <td>Matheus de Oliveira</td>
-                    <td>02</td>
-                    <td>Fusca vermelho</td>
-                    <td>02</td>
-                    <td>(61) 9 8151-0636</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-morador.html"><i class="fas fa-edit"> Editar</i></a>
-                    </td>
-                  </tr>
-                    <tr>
-                    <td>Silvio Suguino</td>
-                    <td>03</td>
-                    <td>Gol branco</td>
-                    <td>03</td>
-                    <td>(61) 9 XXXX-XXXX</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-morador.html"><i class="fas fa-edit"> Editar</i></a>
-                    </td>
-                  </tr>
-                    <tr>
-                    <td>Exemplo</td>
-                    <td>04</td>
-                    <td></td>
-                    <td>04</td>
-                    <td>(61) 9 XXXX-XXXX</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-morador.html"><i class="fas fa-edit"> Editar</i></a>
-                    </td>
-                  </tr>
+                	<c:forEach items="${moradores}" var="morador">
+	                  <tr>
+	                    <td>${morador.nome}</td>
+	                    <td>${morador.email}</td>
+	                    <td>
+		                    <div class="mx-auto col-sm-12 col-lg-6">
+		                    	<a href="#" class="float-left"><i class="fas fa-trash"> Deletar</i></a>
+		                        <a href="editar-morador.html" class="float-right"><i class="fas fa-edit"> Editar</i></a>
+		                    </div>
+	                    </td>
+	                  </tr>
+                	</c:forEach>
                 </tbody>
               </table>
             </div>
@@ -172,14 +134,14 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="../resources/js/sb-admin.min.js"></script>
+  <script src="./resources/js/sb-admin.min.js"></script>
 
 </body>
 </html>

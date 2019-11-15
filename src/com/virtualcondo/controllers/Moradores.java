@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.virtualcondo.models.TipoUsu;
 import com.virtualcondo.models.Usuario;
 import com.virtualcondo.persistencia.UsuarioDAO;
 
@@ -27,7 +28,8 @@ public class Moradores extends HttpServlet {
     	HttpSession session = req.getSession();
     	Usuario u = (Usuario) session.getAttribute("Usuario");
     	String id = req.getParameter("id");
-    	System.out.println("Tipo usu: " + u.getTipoUsu().getId());
+    	String acao = req.getParameter("acao");
+    	if(acao == null) acao = "listar";
 
     	try {
 
@@ -35,19 +37,30 @@ public class Moradores extends HttpServlet {
         	if(u.getTipoUsu().getId() == 2) {
 
         		// Caso informe um id
-        		if(id.length() > 0) {
+        		if(id != null) {
 
         			
 
         		}
         		else {
 
-        			List<Usuario> moradores = new UsuarioDAO().listarMoradores();
+        			if(acao.equalsIgnoreCase("listar")) {
 
-        			req.setAttribute("moradores", moradores);
-        			RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/lista-moradores.jsp");
-        			view.forward(req, res);
-        			return;
+        				List<Usuario> moradores = new UsuarioDAO().listarMoradores();
+
+        				req.setAttribute("moradores", moradores);
+        				RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/lista-moradores.jsp");
+        				view.forward(req, res);
+        				return;
+
+        			}
+        			else if(acao.equalsIgnoreCase("cadastrar")) {
+
+        				RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-morador.jsp");
+        				view.forward(req, res);
+        				return;
+
+        			}
 
         		}
 
@@ -55,6 +68,7 @@ public class Moradores extends HttpServlet {
 
     	}catch(RuntimeException e) {
 
+    		e.printStackTrace();
     		req.setAttribute("msg", e.getMessage());
     		RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/auxiliar/erro.jsp");
     		view.forward(req, res);
@@ -63,22 +77,65 @@ public class Moradores extends HttpServlet {
 
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+		req.setCharacterEncoding("utf-8");
+
+		String nome = req.getParameter("nome");
+		String cpf = req.getParameter("cpf");
+		String rg = req.getParameter("rg");
+		String email = req.getParameter("email");
+		String senha = req.getParameter("senha");
+		String tipoUsu = req.getParameter("tpMorador");
+
+		TipoUsu tU = new TipoUsu();
+		tU.setId(Integer.parseInt(tipoUsu));
+
+		Usuario u = new Usuario();
+		u.setNome(nome);
+		u.setCpf(cpf);
+		u.setRg(rg);
+		u.setEmail(email);
+		u.setSenha(senha);
+		u.setTipoUsu(tU);
+
+		boolean op = false;
+		try {
+			op = new UsuarioDAO().salvarUsuario(u);
+		}catch(RuntimeException e) {
+			req.setAttribute("msg", "Não foi possível cadastrar o morador! " + e.getMessage());
+			RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/auxiliar/erro.jsp");
+			view.forward(req, res);
+		}
+
+		if(op) {
+
+			req.setAttribute("msg", "Morador cadastrado com sucesso!");
+			RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-morador.jsp");
+			view.forward(req, res);
+
+		}
+		else {
+
+			req.setAttribute("msg", "Não foi possível cadastrar o morador!");
+			RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-morador.jsp");
+			view.forward(req, res);
+
+		}
+
 	}
 
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
