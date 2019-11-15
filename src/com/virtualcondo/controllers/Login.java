@@ -35,8 +35,20 @@ public class Login extends HttpServlet {
 
 		String email = request.getParameter("email");
 		String senha = request.getParameter("senha");
+		Usuario u = null;
 
-		Usuario u = new UsuarioDAO().autenticarUsuario(senha, email);
+		try{
+
+			u = new UsuarioDAO().autenticarUsuario(senha, email);
+
+		}catch(RuntimeException e) {
+
+			request.setAttribute("msg", "Serviço indisponível. Tente novamente mais tarde<br>" + e.getMessage());
+			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+			view.forward(request, response);
+			return;
+
+		}
 
 		if(u != null) {
 

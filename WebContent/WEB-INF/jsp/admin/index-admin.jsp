@@ -147,7 +147,7 @@
                 </div>
                 <div class="mr-5"><c:out value="${adminPage.moradoresCadastrados}"></c:out> moradores cadastrados!</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="moradores-lista.html">
+              <a class="card-footer text-white clearfix small z-1" href="/virtualcondo/moradores">
                 <span class="float-left">Administrar moradores</span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>
