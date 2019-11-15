@@ -10,8 +10,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
+		<link rel="icon" href="./resources/imgs/Logo2.png" type="image/icon">
 		
-		<title>SB Admin - Login</title>
+		<title>Virtual Condo - Login</title>
 		
 		<!-- Custom fonts for this template-->
 		<link href="vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
@@ -29,13 +30,13 @@
 	        <form action="/virtualcondo/login" method="post">
 	          <div class="form-group">
 	            <div class="form-label-group">
-	              <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus="autofocus">
+	              <input type="email" value="${email}" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus="autofocus">
 	              <label for="inputEmail">Endereço de E-mail</label>
 	            </div>
 	          </div>
 	          <div class="form-group">
 	            <div class="form-label-group">
-	              <input type="password" id="inputPassword" name="senha" class="form-control" placeholder="Password" required>
+	              <input type="password" value="${senha}" id="inputPassword" name="senha" class="form-control" placeholder="Password" required>
 	              <label for="inputPassword">Senha</label>
 	            </div>
 	          </div>

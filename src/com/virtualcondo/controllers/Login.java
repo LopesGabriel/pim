@@ -26,8 +26,35 @@ public class Login extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
-		view.forward(request, response);
+		HttpSession session = request.getSession();
+		Usuario u = (Usuario) session.getAttribute("Usuario");
+
+		if(u == null) {
+
+			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+			view.forward(request, response);
+
+		}
+		else {
+
+			if(u.getTipoUsu().getId() == 1) {
+				request.setAttribute("visitas", new VisitaDAO().listarVisitasMorador(u.getId()));
+				RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/morador/index-morador.jsp");
+				view.forward(request, response);
+			}
+			else if(u.getTipoUsu().getId() == 2) {
+				IndexAdministrador iA = new DAOAdministrador().popularIndexAdmin();
+				iA.setVisitas(new VisitaDAO().listarVisitas());
+				request.setAttribute("adminPage", iA);
+				RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/admin/index-admin.jsp");
+				view.forward(request, response);	
+			}
+			else if(u.getTipoUsu().getId() == 3) {
+				RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/colaborador/index-colaborador.jsp");
+				view.forward(request, response);
+			}
+
+		}
 
 	}
 
@@ -44,6 +71,8 @@ public class Login extends HttpServlet {
 		}catch(RuntimeException e) {
 
 			request.setAttribute("msg", "Serviço indisponível. Tente novamente mais tarde<br>" + e.getMessage());
+			request.setAttribute("email", email);
+			request.setAttribute("senha", senha);
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 			view.forward(request, response);
 			return;
@@ -58,7 +87,7 @@ public class Login extends HttpServlet {
 			if(u.getTipoUsu().getId() == 1) {
 				request.setAttribute("visitas", new VisitaDAO().listarVisitasMorador(u.getId()));
 				RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/morador/index-morador.jsp");
-				view.forward(request, response);	
+				view.forward(request, response);
 			}
 			else if(u.getTipoUsu().getId() == 2) {
 				IndexAdministrador iA = new DAOAdministrador().popularIndexAdmin();

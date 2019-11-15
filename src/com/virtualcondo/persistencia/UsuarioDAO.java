@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.virtualcondo.connection.ConnectionFactory;
 import com.virtualcondo.models.TipoUsu;
@@ -70,5 +72,59 @@ public class UsuarioDAO {
 		}
 
 		return u;
+	}
+
+	public List<Usuario> listarMoradores(){
+
+		List<Usuario> lista = new ArrayList<Usuario>();
+		String sql = "Select\r\n" + 
+			"	a.id_usuario, a.nome, a.senha, a.email, a.cpf, a.rg, a.tipo_usuario_id, a.veiculo_id_veiculo,\r\n" + 
+			"    b.nivel_acesso, b.nom_cargo\r\n" + 
+			"From\r\n" + 
+			"	virtual_condo.usuario As a\r\n" + 
+			"Left Join \r\n" + 
+			"	virtual_condo.tipo_usuario As b On a.tipo_usuario_id = b.id_tipo_usu \r\n" +
+			"Where a.tipo_usuario_id != 3";
+
+		try {
+
+		PreparedStatement st = connection.prepareStatement(sql);
+		ResultSet rs = st.executeQuery();
+
+		while(rs.next()) {
+
+			Veiculo v = new Veiculo();
+			v.setId(rs.getInt("veiculo_id_veiculo"));
+
+			TipoUsu tU = new TipoUsu();
+			tU.setId(rs.getInt("tipo_usuario_id"));
+			tU.setCargo(rs.getString("nom_cargo"));
+			tU.setNivelAcesso(rs.getString("nivel_acesso"));
+
+			Usuario u = new Usuario(
+				rs.getInt("id_usuario"),
+				rs.getString("nome"),
+				rs.getString("senha"),
+				rs.getString("email"),
+				rs.getString("cpf"),
+				rs.getString("rg"),
+				tU,
+				v
+			);
+
+			lista.add(u);
+
+		}
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return lista;
 	}
 }
