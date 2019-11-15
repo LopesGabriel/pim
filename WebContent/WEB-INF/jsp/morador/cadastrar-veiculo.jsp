@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -40,7 +40,7 @@
 	                  <li class="breadcrumb-item">
 	                    <a href="index.html">Painel de Controle</a>
 	                  </li>
-	                  <li class="breadcrumb-item active">Registrar veículo</li>
+	                  <li class="breadcrumb-item active">Registrar veÃ­culo</li>
 	                </ol>
 	
 	                <!-- Page Content -->
@@ -76,7 +76,7 @@
 	      <footer class="sticky-footer">
 	        <div class="container my-auto">
 	          <div class="copyright text-center my-auto">
-	            <span>Copyright © Virtual Condo 2019</span>
+	            <span>Copyright Â© Virtual Condo 2019</span>
 	          </div>
 	        </div>
 	      </footer>
@@ -99,10 +99,10 @@
 	        <div class="modal-header">
 	          <h5 class="modal-title" id="exampleModalLabel">Deseja mesmo sair?</h5>
 	          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-	            <span aria-hidden="true">×</span>
+	            <span aria-hidden="true">Ã—</span>
 	          </button>
 	        </div>
-	        <div class="modal-body">Selecione a opção "Sair" para confirmar o termino da sessão.</div>
+	        <div class="modal-body">Selecione a opÃ§Ã£o "Sair" para confirmar o termino da sessÃ£o.</div>
 	        <div class="modal-footer">
 	          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
 	          <a class="btn btn-primary" href="login.html">Sair</a>

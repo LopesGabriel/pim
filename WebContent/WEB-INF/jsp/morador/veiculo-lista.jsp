@@ -99,7 +99,7 @@
 			                    <td>${Usuario.nome}</td>
 			                    <td>
 			                        <span id="deletarVeiculo" data-id="${veiculosMorador.id}" class="fas fa-trash Clicar"> Deletar</span> |
-			                        <a href="/veiculo?acao=edit&id=${veiculosMorador.id}"><i class="fas fa-edit"> Editar</i></a>
+			                        <a href="/virtualcondo/veiculo?acao=edit&idVeiculo=${veiculosMorador.id}"><i class="fas fa-edit"> Editar</i></a>
 			                    </td>
 			                </tr>
                 		</c:when>

@@ -24,6 +24,71 @@ public class VeiculoDAO {
 		this.connectionReciclada = true;
 	}
 	
+	public void editarVeiculo(Veiculo veiculo) {
+		String sql = "UPDATE virtual_condo.veiculo SET marca = ?, placa = ?, vaga = ? WHERE id_veiculo = ?";
+		try {
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setString(1, veiculo.getMarca());
+			st.setString(2, veiculo.getPlaca());
+			st.setInt(3, veiculo.getVaga().getId());
+			st.setInt(4, veiculo.getId());
+			st.execute();
+		}catch(SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			}catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally {
+			try {
+				connection.commit();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public Veiculo buscarVeiculo(Integer id) {
+		Veiculo veiculo = null;
+		String sql = "SELECT \r\n" + 
+				"	veiculo.id_veiculo, veiculo.marca, veiculo.placa,\r\n" + 
+				"    vaga.id_vaga, vaga.vaga, vaga.em_uso\r\n" + 
+				"FROM \r\n" + 
+				"	virtual_condo.veiculo AS veiculo\r\n" + 
+				"LEFT JOIN\r\n" + 
+				"	virtual_condo.vagas AS vaga ON veiculo.vaga = vaga.id_vaga\r\n" + 
+				"WHERE id_veiculo = ?";
+		try {
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setInt(1, id);
+			ResultSet rs = st.executeQuery();
+			if(rs.next()) {
+				
+				Vagas vaga = new Vagas();
+				vaga.setId(rs.getInt("id_vaga"));
+				vaga.setVaga(rs.getString("vaga"));
+				vaga.setEm_uso(rs.getBoolean("em_uso"));
+				
+				veiculo = new Veiculo();
+				veiculo.setId(rs.getInt("id_veiculo"));
+				veiculo.setMarca(rs.getString("marca"));
+				veiculo.setPlaca(rs.getString("placa"));
+				veiculo.setVaga(vaga);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(!connectionReciclada) connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return veiculo;
+	}
+	
 	public void salvarVeiculo(Veiculo v, Usuario u) {
 		
 		Integer id_veiculo = 0;
