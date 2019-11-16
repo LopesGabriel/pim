@@ -130,13 +130,26 @@ public class Moradores extends HttpServlet {
 			tU.setId(Integer.parseInt(tipoUsu));
 			
 			Usuario u = new Usuario();
+			u.setId(Integer.parseInt(req.getParameter("uId")));
 			u.setNome(nome);
 			u.setCpf(cpf);
 			u.setRg(rg);
 			u.setEmail(email);
 			u.setTipoUsu(tU);
 
-			
+			boolean op = new UsuarioDAO().EditarMorador(u);
+
+			if(op) {
+				req.setAttribute("msg", u.getNome() + ", foi editado com sucesso!");
+				req.setAttribute("user", u);
+				RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/editar-morador.jsp");
+				view.forward(req, res);
+			}
+			else {
+				req.setAttribute("msg", "Não foi possível editar o morador.");
+				RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/auxiliar/erro.jsp");
+	    		view.forward(req, res);
+			}
 
 		}
 

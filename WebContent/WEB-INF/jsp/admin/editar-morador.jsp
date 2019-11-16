@@ -46,39 +46,44 @@
                   <li class="breadcrumb-item active">Editar morador</li>
                 </ol>
 
+				<c:if test="${msg != null}">
+					<h2 class="text-center text-success">${msg}</h2>
+				</c:if>
+
                 <!-- Page Content -->
                 <form method="post" action="/virtualcondo/moradores?acao=acao">
+                	<input type="hidden" name="uId" value="${user.id}">
                     <div class="form-label-group mb-3">
-                        <input type="text" id="inputNome" class="form-control" placeholder="Nome" value="${user.nome}" required autofocus>
+                        <input type="text" name="nome" class="form-control" placeholder="Nome" value="${user.nome}" required autofocus>
                         <label for="inputNome">Nome</label>
                     </div> 
                     <div class="form-label-group mb-3">
-                        <input type="text" id="inputCpf" class="form-control" placeholder="CPF" value="${user.cpf}">
+                        <input type="text" name="cpf" class="form-control" placeholder="CPF" value="${user.cpf}">
                         <label for="inputCpf">CPF</label>
                     </div>
                     <div class="form-label-group mb-3">
-                        <input type="text" id="inputRg" class="form-control" placeholder="RG" value="${user.rg}">
+                        <input type="text" name="rg" class="form-control" placeholder="RG" value="${user.rg}">
                         <label for="inputRg">RG</label>
                     </div>
                     <div class="form-label-group mb-3">
-                        <input type="text" id="inputEmail" class="form-control" placeholder="E-mail" value="${user.email}">
+                        <input type="text" name="email" class="form-control" placeholder="E-mail" value="${user.email}">
                         <label for="inputEmail">E-mail</label>
                     </div>
                     <div class="form-label-group mb-3">
-                        <input type="password" id="inputSenha" class="form-control" placeholder="Senha" value="${user.senha}" readonly>
+                        <input type="password" name="senha" class="form-control" placeholder="Senha" value="${user.senha}" readonly>
                         <label for="inputSenha">Senha</label>
                     </div>
                     <div class="input-group mb-3">
-                        <select class="custom-select" id="inputBloco">
+                        <select class="custom-select" name="tpMorador" id="inputBloco">
                         	<optgroup label="Tipo de Usuário">
-	                            <option <c:if test="${user.tipoUsu.id == 1}">selected</c:if>>Morador</option>
-	                            <option <c:if test="${user.tipoUsu.id == 2}">selected</c:if>>Administrador</option>
+	                            <option <c:if test="${user.tipoUsu.id == 1}">selected</c:if> value="1">Morador</option>
+	                            <option <c:if test="${user.tipoUsu.id == 2}">selected</c:if> value="2">Administrador</option>
                             </optgroup>
                         </select>
                     </div>
                    	  <div class="form-lavel-group mb-3 col-sm-12 col-lg-4 mx-auto">
 				          <input type="submit" class="btn btn-primary form-control col-sm-12 col-lg-5" value="Confirmar">
-				          <input type="button" id="inputCancelar" class="btn btn-danger form-control col-sm-12 col-lg-5" value="Cancelar">
+				          <a href="/virtualcondo/login" class="btn btn-danger col-sm-12 col-lg-5">Voltar</a>
 			          </div>
               </form>
             </div><!-- Col dos campos de texto -->

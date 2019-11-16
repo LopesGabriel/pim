@@ -44,6 +44,7 @@ public class VagasDAO {
 		}finally {
 			try {
 				connection.commit();
+				connection.close();
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}
@@ -67,6 +68,7 @@ public class VagasDAO {
 		}finally {
 			try {
 				connection.commit();
+				connection.close();
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}

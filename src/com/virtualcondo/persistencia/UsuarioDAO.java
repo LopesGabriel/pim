@@ -239,9 +239,44 @@ public class UsuarioDAO {
 		}finally {
 			try {
 				connection.commit();
+				connection.close();
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public boolean EditarMorador(Usuario user) {
+		boolean op = false;
+		String sql = "UPDATE virtual_condo.usuario SET nome = ?, email = ?, cpf = ?, rg = ?, tipo_usuario_id = ?  WHERE id_usuario = ?";
+		try {
+
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setString(1, user.getNome());
+			st.setString(2, user.getEmail());
+			st.setString(3, user.getCpf());
+			st.setString(4, user.getRg());
+			st.setInt(5, user.getTipoUsu().getId());
+			st.setInt(6, user.getId());
+			st.execute();
+			op = true;
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+			op = false;
+			try {
+				connection.rollback();
+			}catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally {
+			try {
+				connection.commit();
+				connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return op;
 	}
 }

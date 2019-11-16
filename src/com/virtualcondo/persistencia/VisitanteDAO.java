@@ -45,6 +45,7 @@ public class VisitanteDAO {
 		}finally {
 			try {
 				connection.commit();
+				connection.close();
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}

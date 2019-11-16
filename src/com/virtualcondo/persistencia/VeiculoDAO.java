@@ -43,6 +43,7 @@ public class VeiculoDAO {
 		}finally {
 			try {
 				connection.commit();
+				connection.close();
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}
@@ -128,6 +129,7 @@ public class VeiculoDAO {
 		}finally {
 			try {
 				connection.commit();
+				connection.close();
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}
@@ -156,6 +158,7 @@ public class VeiculoDAO {
 		}finally {
 			try {
 				connection.commit();
+				connection.close();
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}
