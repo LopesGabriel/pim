@@ -27,13 +27,8 @@
       <span>Lazer</span>
     </a>
     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-      <h6 class="dropdown-header">Reservar um espaço</h6>
-      <a class="dropdown-item" href="reservar-lazer.html">Reservar espaço</a>
+      <h6 class="dropdown-header">Espaço do Morador</h6>
+      <a class="dropdown-item" href="reservar-lazer.html">Áreas de Lazer</a>
     </div>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="meu-apartamento.html">
-      <i class="fas fa-building"></i>
-      <span>Meu apartamento</span></a>
   </li>
 </ul>
