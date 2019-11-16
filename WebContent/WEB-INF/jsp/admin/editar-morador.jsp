@@ -47,7 +47,7 @@
                 </ol>
 
                 <!-- Page Content -->
-                <form>
+                <form method="post" action="/virtualcondo/moradores?acao=acao">
                     <div class="form-label-group mb-3">
                         <input type="text" id="inputNome" class="form-control" placeholder="Nome" value="${user.nome}" required autofocus>
                         <label for="inputNome">Nome</label>
@@ -76,15 +76,14 @@
                             </optgroup>
                         </select>
                     </div>
+                   	  <div class="form-lavel-group mb-3 col-sm-12 col-lg-4 mx-auto">
+				          <input type="submit" class="btn btn-primary form-control col-sm-12 col-lg-5" value="Confirmar">
+				          <input type="button" id="inputCancelar" class="btn btn-danger form-control col-sm-12 col-lg-5" value="Cancelar">
+			          </div>
               </form>
             </div><!-- Col dos campos de texto -->
               
         </div><!-- fim do row -->
-          <div class="form-lavel-group mb-3 col-12 row">
-            <input type="button" id="inputSubmit" class="btn btn-primary form-control col-4" value="Confirmar">
-            <span class="col-4"></span>
-            <input type="button" id="inputCancelar" class="btn btn-danger form-control col-4" value="Cancelar">
-          </div>
       </div><!-- fim do container -->
     </div>
       <!-- /.container-fluid -->
@@ -108,23 +107,7 @@
   </a>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Deseja mesmo sair?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Selecione a opção "Sair" para confirmar o termino da sessão.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" href="login.html">Sair</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <c:import url="../auxiliar/logout.jsp"></c:import>
 
   <!-- Bootstrap core JavaScript-->
   <script src="./vendor/jquery/jquery.js"></script>

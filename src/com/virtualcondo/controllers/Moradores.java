@@ -83,54 +83,70 @@ public class Moradores extends HttpServlet {
 		String email = req.getParameter("email");
 		String senha = req.getParameter("senha");
 		String tipoUsu = req.getParameter("tpMorador");
+		String acao = req.getParameter("acao");
 
-		TipoUsu tU = new TipoUsu();
-		tU.setId(Integer.parseInt(tipoUsu));
+		if(acao == null) {
 
-		Usuario u = new Usuario();
-		u.setNome(nome);
-		u.setCpf(cpf);
-		u.setRg(rg);
-		u.setEmail(email);
-		u.setSenha(senha);
-		u.setTipoUsu(tU);
+			TipoUsu tU = new TipoUsu();
+			tU.setId(Integer.parseInt(tipoUsu));
+			
+			Usuario u = new Usuario();
+			u.setNome(nome);
+			u.setCpf(cpf);
+			u.setRg(rg);
+			u.setEmail(email);
+			u.setSenha(senha);
+			u.setTipoUsu(tU);
+			
+			boolean op = false;
+			try {
+				op = new UsuarioDAO().salvarUsuario(u);
+			}catch(RuntimeException e) {
+				req.setAttribute("msg", "Não foi possível cadastrar o morador! " + e.getMessage());
+				RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/auxiliar/erro.jsp");
+				view.forward(req, res);
+			}
+			
+			if(op) {
+				
+				req.setAttribute("msg", "Morador cadastrado com sucesso!");
+				RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-morador.jsp");
+				view.forward(req, res);
+				
+			}
+			else {
+				
+				req.setAttribute("msg", "Não foi possível cadastrar o morador!");
+				RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-morador.jsp");
+				view.forward(req, res);
+				
+			}
 
-		boolean op = false;
-		try {
-			op = new UsuarioDAO().salvarUsuario(u);
-		}catch(RuntimeException e) {
-			req.setAttribute("msg", "Não foi possível cadastrar o morador! " + e.getMessage());
-			RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/auxiliar/erro.jsp");
-			view.forward(req, res);
-		}
-
-		if(op) {
-
-			req.setAttribute("msg", "Morador cadastrado com sucesso!");
-			RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-morador.jsp");
-			view.forward(req, res);
-
+			return;
 		}
 		else {
 
-			req.setAttribute("msg", "Não foi possível cadastrar o morador!");
-			RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-morador.jsp");
-			view.forward(req, res);
+			TipoUsu tU = new TipoUsu();
+			tU.setId(Integer.parseInt(tipoUsu));
+			
+			Usuario u = new Usuario();
+			u.setNome(nome);
+			u.setCpf(cpf);
+			u.setRg(rg);
+			u.setEmail(email);
+			u.setTipoUsu(tU);
+
+			
 
 		}
 
 	}
 
-	/**
-	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
-	 */
 	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String nome = req.getParameter("nome");
+		System.out.println("Method Put, Nome: " + nome);
 	}
 
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
 	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
