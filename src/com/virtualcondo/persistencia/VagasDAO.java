@@ -108,7 +108,6 @@ public class VagasDAO {
 		
 		List<Vagas> lista = new ArrayList<Vagas>();
 		String sql = "SELECT vaga, em_uso FROM virtual_condo.vagas WHERE em_uso = 0";
-		System.out.println(sql);
 		
 		try {
 			

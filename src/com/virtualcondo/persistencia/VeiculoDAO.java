@@ -175,7 +175,6 @@ public class VeiculoDAO {
 				" LEFT JOIN" + 
 				"	virtual_condo.vagas AS vaga ON veiculo.vaga = vaga.id_vaga" + 
 				" WHERE u.id_usuario = ?";
-		System.out.println(sql);
 		try {
 			PreparedStatement st = connection.prepareStatement(sql);
 			st.setInt(1, id);

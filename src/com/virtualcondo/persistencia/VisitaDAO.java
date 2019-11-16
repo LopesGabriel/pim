@@ -137,7 +137,6 @@ public class VisitaDAO {
 			"Left Join \r\n" + 
 			"	virtual_condo.usuario As c On a.usuario_id = c.id_usuario\r\n" + 
 			"Order By data_entrada Asc";
-		System.out.println(sql);
 
 		try {
 
@@ -184,7 +183,6 @@ public class VisitaDAO {
 				"	virtual_condo.visitante AS b ON a.visitante_id = b.id_visitante\n" + 
 				"WHERE\n" + 
 				"	a.usuario_id = ?";
-		System.out.println(sql);
 
 		try {
 

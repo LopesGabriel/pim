@@ -216,4 +216,32 @@ public class UsuarioDAO {
 		return u;
 
 	}
+	
+	public void AlterarUsuario(Usuario user) {
+		String sql = "UPDATE virtual_condo.usuario SET nome = ?, email = ?, cpf = ?, rg = ? WHERE id_usuario = ?";
+		try {
+			
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setString(1, user.getNome());
+			st.setString(2, user.getEmail());
+			st.setString(3, user.getCpf());
+			st.setString(4, user.getRg());
+			st.setInt(5, user.getId());
+			st.execute();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			}catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally {
+			try {
+				connection.commit();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
