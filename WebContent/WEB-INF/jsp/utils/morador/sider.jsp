@@ -5,7 +5,7 @@
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
   <li class="nav-item">
-    <a class="nav-link active" href="index-morador.html">
+    <a class="nav-link active" href="index">
       <i class="fas fa-user"></i>
       <span>${Usuario.nome}</span>
     </a>

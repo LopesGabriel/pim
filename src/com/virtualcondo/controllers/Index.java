@@ -9,33 +9,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class Index
- */
+import com.virtualcondo.models.Usuario;
+
 @WebServlet("/index")
 public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public Index() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		Usuario user = (Usuario) request.getSession().getAttribute("Usuario");
+		
+		if(user != null) {
+			if( user.getTipoUsu().getNivelAcesso().equals("Morador")) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/index-morador.jsp");
+				dispatcher.forward(request, response);
+				return;
+			}else if ( user.getTipoUsu().getNivelAcesso().equals("Síndico")) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/admin/index-admin.jsp");
+				dispatcher.forward(request, response);
+				return;
+			}
+		}
+		
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/index.jsp");
 		view.forward(request, response);
 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
