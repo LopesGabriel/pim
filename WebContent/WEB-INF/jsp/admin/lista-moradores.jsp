@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	  <link rel="icon" href="../resources/imgs/Logo2.png" type="image/icon">
+	<link rel="icon" href="./resources/imgs/Logo2.png" type="image/icon">
 	
 	<title>Virtual Condo</title>
 	
@@ -21,6 +21,13 @@
 	
 	<!-- Custom styles for this template-->
 	<link href="./resources/css/sb-admin.css" rel="stylesheet">
+
+	<style>
+		.Clicar{
+			cursor: pointer;
+		}
+	</style>
+
 </head>
 <body id="page-top">
 
@@ -74,13 +81,14 @@
                 </tfoot>
                 <tbody>
                 	<c:forEach items="${moradores}" var="morador">
-	                  <tr>
+	                  <tr data-cpf="${morador.cpf}">
 	                    <td>${morador.nome}</td>
 	                    <td>${morador.email}</td>
 	                    <td>
-		                    <div class="mx-auto col-sm-12 col-lg-6">
-		                    	<a href="#" class="float-left"><i class="fas fa-trash"> Deletar</i></a>
-		                        <a href="/virtualcondo/moradores?acao=editar&id=${morador.id}" class="float-right"><i class="fas fa-edit"> Editar</i></a>
+		                    <div class="mx-auto col-sm-12 col-lg-4">
+		                    	<i id="deletar-morador" class="fas fa-trash float-left Clicar" data-id="${morador.id}" title="Deletar" data-toggle="tooltip" data-placement="left"></i>
+		                        <a href="/virtualcondo/moradores?acao=editar&id=${morador.id}"
+		                        class="fas fa-edit float-right" title="Editar" data-toggle="tooltip" data-placement="left"></a>
 		                    </div>
 	                    </td>
 	                  </tr>
@@ -89,7 +97,7 @@
               </table>
             </div>
           </div>
-          <div class="card-footer small text-muted">Ultima atualização dia 30/04</div>
+          <div class="card-footer small text-muted">Se beber, não dirija!</div>
         </div>
       </div>
       <!-- /.container-fluid -->
@@ -120,12 +128,67 @@
   <!-- Bootstrap core JavaScript-->
   <script src="./vendor/jquery/jquery.js"></script>
   <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Bootbox -->
+  <script src="./vendor/bootbox/bootbox.all.min.js"></script>
 
   <!-- Core plugin JavaScript-->
   <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
   <script src="./resources/js/sb-admin.min.js"></script>
+
+<script>
+
+$(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip();
+});
+
+$(document).on('click', '#deletar-morador', function(){
+
+	var uId = $(this).data('id');
+	var linha = $(this).parent().data('cpf');
+
+	$.ajax({
+		url: '/virtualcondo/moradores',
+		method: 'delete',
+		data: {uid: uId},
+		success: function(rs){
+			let ttl;
+			let msg;
+			let ex = rs.ex;
+
+			switch(rs.status){
+			case true:
+				ttl = '<span class="text-success"><i class="far fa-check-circle"></i> Sucesso</span>';
+				msg = rs.msg;
+				$(linha).remove();
+				break;
+			case false:
+				ttl = '<span class="text-danger"><i class="fas fa-exclamation"></i> Oops</span>';
+				msg = rs.msg;
+				if(ex) msg += '<br>' + ex;
+				break;
+			}
+
+			bootbox.dialog({
+				title: ttl,
+				message: msg,
+				buttons:{
+					fechar:{
+						label: 'Fechar',
+						className: 'btn-danger',
+						callback: function(){}
+					}
+				}
+			});
+
+		}
+	});
+
+});
+
+</script>
 
 </body>
 </html>

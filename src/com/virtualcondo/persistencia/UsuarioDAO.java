@@ -279,4 +279,37 @@ public class UsuarioDAO {
 		}
 		return op;
 	}
+
+	public boolean deletarPorId(Integer id) {
+
+		boolean op = false;
+		String sql = "Delete From virtual_condo.usuario Where id_usuario = " + id;
+
+		try {
+
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.execute();
+			op = true;
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+			op = false;
+			try {
+				connection.rollback();
+			}catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally {
+			try {
+				connection.commit();
+				connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return op;
+
+	}
+
 }

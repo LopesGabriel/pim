@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-expand navbar-dark bg-blue static-top">
 
-  <a class="navbar-brand mr-1" href="index.html">Virtual Condo</a>
+  <a class="navbar-brand mr-1" href="index">Virtual Condo</a>
 
   <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
     <i class="fas fa-bars"></i>
@@ -31,7 +31,7 @@
         <i class="fas fa-sign-out-alt"></i>
       </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-        <a class="dropdown-item" href="#">Perfil</a>
+        <a class="dropdown-item" href="perfil">Perfil</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Sair</a>
       </div>

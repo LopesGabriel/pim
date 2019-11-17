@@ -5,36 +5,36 @@
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
   <li class="nav-item active">
-    <a class="nav-link" href="index-admin.html">
+    <a class="nav-link" href="index">
       <i class="fas fa-user"></i>
       <span>${Usuario.nome}</span>
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="moradores-lista.html">
+    <a class="nav-link" href="moradores">
       <i class="fas fa-home"></i>
       <span>Moradores</span>
     </a>
   </li>
     <li class="nav-item">
-    <a class="nav-link" href="colaborador-lista.html">
+    <a class="nav-link" href="colaboradores">
       <i class="fas fa-briefcase"></i>
       <span>Colaborador</span>
     </a>
   </li>
     <li class="nav-item">
-    <a class="nav-link" href="visitante-lista.html">
+    <a class="nav-link" href="visitantes">
       <i class="fas fa-user-friends"></i>
       <span>Visitantes</span>
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="veiculo-lista.html">
+    <a class="nav-link" href="veiculos">
       <i class="fas fa-fw fa-car"></i>
       <span>Veículos</span></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="arealazer-lista.html">
+    <a class="nav-link" href="area-de-lazer">
       <i class="fas fa-dumbbell"></i>
       <span>Áreas de lazer</span></a>
   </li>

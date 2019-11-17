@@ -59,11 +59,11 @@
                         <label for="inputNome">Nome</label>
                     </div> 
                     <div class="form-label-group mb-3 col-sm-6 col-lg-4">
-                        <input type="text" id="inputCpf" name="cpf" class="form-control" placeholder="CPF">
+                        <input type="text" id="inputCpf" name="cpf" class="form-control cpf" placeholder="CPF">
                         <label for="inputCpf">CPF</label>
                     </div>
                     <div class="form-label-group mb-3 col-sm-6 col-lg-4">
-                        <input type="text" id="inputRg" name="rg" class="form-control" placeholder="RG">
+                        <input type="text" id="inputRg" name="rg" class="form-control rg" placeholder="RG">
                         <label for="inputRg">RG</label>
                     </div>
                     <div class="form-label-group mb-3 col-sm-6 col-lg-4">
@@ -116,6 +116,7 @@
 
   <!-- Bootstrap core JavaScript-->
   <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/jquery/jquery.mask.js"></script>
   <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   
   <!-- Core plugin JavaScript-->
@@ -123,6 +124,13 @@
 
   <!-- Custom scripts for all pages-->
   <script src="./resources/js/sb-admin.min.js"></script>
+
+<script>
+$(document).ready(function(){
+	$('.cpf').mask('000.000.000-00');
+	$('.rg').mask('0.000.000');
+});
+</script>
 
 </body>
 </html>

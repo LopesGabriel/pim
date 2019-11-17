@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.virtualcondo.models.TipoUsu;
 import com.virtualcondo.models.Usuario;
 import com.virtualcondo.persistencia.UsuarioDAO;
+import com.virtualcondo.utils.GerarJson;
 
 @WebServlet("/moradores")
 public class Moradores extends HttpServlet {
@@ -161,7 +162,30 @@ public class Moradores extends HttpServlet {
 	}
 
 	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		try {
+
+			Integer id = Integer.parseInt("uid");
+			boolean op = new UsuarioDAO().deletarPorId(id);
+			res.setContentType("json");
+			res.setCharacterEncoding("utf-8");
+
+			if(op) {
+
+				res.getWriter().write(GerarJson.sucesso("Morador deletado com sucesso!"));
+
+			}
+			else {
+
+				res.getWriter().write(GerarJson.erro("Não foi possível deletar o Morador!", null));
+
+			}
+
+		}catch(Exception e) {
+			e.printStackTrace();
+			res.getWriter().write(GerarJson.erro("Não foi possível deletar o Morador!", e.getMessage()));
+		}
+
 	}
 
 }

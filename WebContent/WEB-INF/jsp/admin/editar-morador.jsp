@@ -58,11 +58,11 @@
                         <label for="inputNome">Nome</label>
                     </div> 
                     <div class="form-label-group mb-3">
-                        <input type="text" name="cpf" class="form-control" placeholder="CPF" value="${user.cpf}">
+                        <input type="text" name="cpf" class="form-control cpf" placeholder="CPF" value="${user.cpf}">
                         <label for="inputCpf">CPF</label>
                     </div>
                     <div class="form-label-group mb-3">
-                        <input type="text" name="rg" class="form-control" placeholder="RG" value="${user.rg}">
+                        <input type="text" name="rg" class="form-control rg" placeholder="RG" value="${user.rg}">
                         <label for="inputRg">RG</label>
                     </div>
                     <div class="form-label-group mb-3">
@@ -116,6 +116,7 @@
 
   <!-- Bootstrap core JavaScript-->
   <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/jquery/jquery.mask.js"></script>
   <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -123,6 +124,13 @@
 
   <!-- Custom scripts for all pages-->
   <script src="./resources/js/sb-admin.min.js"></script>
+
+<script>
+$(document).ready(function(){
+	$('.cpf').mask('000.000.000-00', {reverse: true});
+	$('.rg').mask('0.000.000', {reverse: true});
+});
+</script>
 
 </body>
 </html>
