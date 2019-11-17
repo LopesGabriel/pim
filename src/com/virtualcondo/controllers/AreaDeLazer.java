@@ -10,42 +10,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.virtualcondo.models.Usuario;
+import com.virtualcondo.persistencia.AreaDeLazerDAO;
 
-@WebServlet("/mensagem")
-public class Mensagem extends HttpServlet {
+@WebServlet("/area-de-lazer")
+public class AreaDeLazer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public Mensagem() {
+    public AreaDeLazer() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Usuario user = (Usuario) request.getSession().getAttribute("Usuario");
-		String acao = request.getParameter("acao");
-		
-		if(acao != null) {
-			
-			if(acao.equals("visualizar")) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/mensagem-visualizar.jsp");
-				dispatcher.forward(request, response);
-				return;
-			}else if (acao.equals("enviar")) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/enviar-mensagem.jsp");
-				dispatcher.forward(request, response);
-				return;
-			}
-			
-		}
-		
 		
 		if(user.getTipoUsu().getNivelAcesso().equals("Morador")) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/mensagem-lista.jsp");
+			request.setAttribute("AreasDeLazer", new AreaDeLazerDAO().listarAreasDeLazer());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/area-de-lazer.jsp");
 			dispatcher.forward(request, response);
 		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

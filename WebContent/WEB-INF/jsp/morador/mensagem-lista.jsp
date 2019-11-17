@@ -37,7 +37,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.html">Painel de Controle</a>
+            <a href="index">Morador</a>
           </li>
           <li class="breadcrumb-item active">Mensagens</li>
         </ol>
@@ -59,7 +59,7 @@
         <hr>
           
           <div>
-            <button class="btn btn-dark mb-3"><a class="text-light" href="enviar-mensagem.html">Enviar uma Mensagem</a></button>
+            <a class="text-light btn btn-dark mb-3" href="mensagem?acao=enviar">Enviar uma Mensagem</a>
           </div>
           
         <!-- DataTables Example -->
@@ -72,7 +72,6 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th>Titulo</th>
                     <th>Assunto</th>
                     <th>Remetente</th>
                     <th>Opções</th>
@@ -80,7 +79,6 @@
                 </thead>
                 <tfoot>
                   <tr>
-                    <th>Titulo</th>
                     <th>Assunto</th>
                     <th>Remetente</th>
                     <th>Opções</th>
@@ -88,16 +86,14 @@
                 </tfoot>
                 <tbody>
                   <tr>
-                    <td>Bom dia</td>
                     <td>Queria lhe desejar um bom dia</td>
                     <td>Matheus Lopes</td>
                     <td>
-                        <a href="mensagem-visualizar.html"><i class="fas fa-envelope-open-text" style="padding-right: 10px;"> Visualizar</i></a>
+                        <a href="mensagem?acao=visualizar"><i class="fas fa-envelope-open-text" style="padding-right: 10px;"> Visualizar</i></a>
                         <a href="#"><i class="fas fa-trash"> Remover</i></a>
                     </td>
                   </tr>
                   <tr>
-                    <td>Reunião</td>
                     <td>Reunião marcada para as 15:00</td>
                     <td>Silvio Suguino</td>
                     <td>
@@ -106,7 +102,6 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>Mensagem do sistema</td>
                     <td>Bem vindo</td>
                     <td>Gabriel Lopes</td>
                     <td>

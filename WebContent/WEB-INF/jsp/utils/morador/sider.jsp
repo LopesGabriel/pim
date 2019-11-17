@@ -28,7 +28,7 @@
     </a>
     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
       <h6 class="dropdown-header">Espaço do Morador</h6>
-      <a class="dropdown-item" href="reservar-lazer.html">Áreas de Lazer</a>
+      <a class="dropdown-item" href="area-de-lazer">Áreas de Lazer</a>
     </div>
   </li>
 </ul>
