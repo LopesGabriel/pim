@@ -9,18 +9,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	  <link rel="icon" href="../resources/imgs/Logo2.png" type="image/icon">
+	  <link rel="icon" href="./resources/imgs/Logo2.png" type="image/icon">
 	
 	<title>Virtual Condo</title>
 	
 	<!-- Custom fonts for this template-->
-	<link href="../vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="./vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
 	
 	<!-- Page level plugin CSS-->
-	<link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+	<link href="./vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 	
 	<!-- Custom styles for this template-->
-	<link href="../resources/css/sb-admin.css" rel="stylesheet">
+	<link href="./resources/css/sb-admin.css" rel="stylesheet">
 </head>
 <body id="page-top">
 
@@ -47,68 +47,32 @@
                 </ol>
 
                 <!-- Page Content -->
-                <form>
-                    <div class="form-label-group mb-3">
+                <form class="form-row">
+                    <div class="form-label-group mb-3 col-sm-12 col-lg-6">
                         <input type="text" id="inputNome" class="form-control" placeholder="Nome" required autofocus>
                         <label for="inputNome">Nome</label>
                     </div> 
-                    <div class="form-label-group mb-3">
+                    <div class="form-label-group mb-3 col-sm-12 col-lg-6">
                         <input type="text" id="inputCpf" class="form-control" placeholder="CPF">
                         <label for="inputCpf">CPF</label>
                     </div>
-                    <div class="form-label-group mb-3">
+                    <div class="form-label-group mb-3 col-sm-12 col-lg-6">
                         <input type="text" id="inputRg" class="form-control" placeholder="RG">
                         <label for="inputRg">RG</label>
                     </div>
-                    <div class="form-label-group mb-3">
-                        <input type="text" id="inputEmail" class="form-control" placeholder="E-mail">
-                        <label for="inputEmail">E-mail</label>
-                    </div>
-                    <div class="form-label-group mb-3">
+                    <div class="form-label-group mb-3 col-sm-12 col-lg-6">
                         <input type="text" id="inputTelefone" class="form-control" placeholder="Telefone">
                         <label for="inputTelefone">Telefone</label>
                     </div>
-                    <div class="mb-3 row">
-                        <span class="col-1"></span>
-                      <label for="inputDate" class="col-5 col-form-label">Data de Nascimento:</label>
-                      <input class="form-control col-5" type="date" id="inputDate">
-                        <span class="col-1"></span>
-                    </div>
-                    <div class="input-group mb-3">
-                        <select class="custom-select" id="inputBloco">
-                            <option selected>Tipo de usuário</option>
-                            <option>Visitante</option>
-                        </select>
-                    </div>
-                    <div class="mb-3 row">
-                        <span class="col-1"></span>
-                      <label for="inputDate" class="col-5 col-form-label">Data de Entrada:</label>
-                      <input class="form-control col-5" type="date" id="inputDate">
-                        <span class="col-1"></span>
-                    </div>
               </form>
-            </div><!-- Col dos campos de texto -->
-              
-            <div id="coluna2" class="col">
-                
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item active">Imagem de Perfil</li>
-                </ol>
-                
-                <img class="rounded mx-auto d-block mb-3" src="../resources/imgs/cadastro-img.jpg">
-                
-                <div class="form-group">
-                    <label for="exampleFormControlFile1">Adicionar imagem</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                </div>
-                
             </div>
               
         </div><!-- fim do row -->
-          <div class="form-lavel-group mb-3 col-12 row">
-            <input type="button" id="inputSubmit" class="btn btn-primary form-control col-4" value="Confirmar">
-            <span class="col-4"></span>
-            <input type="button" id="inputCancelar" class="btn btn-danger form-control col-4" value="Cancelar">
+          <div class="row">
+          	<div class="mx-auto col-sm-12 col-lg-12">
+          		<input type="submit" class="btn btn-primary form-control col-4" value="Confirmar">
+          		<a href="/virtualcondo/visitantes" class="btn btn-danger col-4 float-right">Voltar</a>
+          	</div>
           </div>
       </div><!-- fim do container -->
     </div>
@@ -136,14 +100,14 @@
   <c:import url="../auxiliar/logout.jsp"></c:import>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="../resources/js/sb-admin.min.js"></script>
+  <script src="./resources/js/sb-admin.min.js"></script>
 
 </body>
 </html>

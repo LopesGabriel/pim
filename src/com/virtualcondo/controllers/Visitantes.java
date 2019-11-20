@@ -43,6 +43,20 @@ public class Visitantes extends HttpServlet {
         			RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/lista-visitantes.jsp");
             		view.forward(req, res);
         		}
+        		else if(acao.equalsIgnoreCase("cadastrar")) {
+
+        			RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-visitante.jsp");
+            		view.forward(req, res);
+
+        		}
+        		else if(acao.equalsIgnoreCase("editar")) {
+
+        			Visitante v = new VisitanteDAO().recuperarVisitante(Integer.parseInt(id));
+        			req.setAttribute("visitante", v);
+        			RequestDispatcher view = req.getRequestDispatcher("WEB-INF/jsp/admin/editar-visitante.jsp");
+            		view.forward(req, res);
+
+        		}
 
         	}
 
