@@ -83,8 +83,7 @@
 	
 	    </div>
 	    <!-- /.content-wrapper -->
-	
-	  </div>
+
 	  <!-- /#wrapper -->
 	
 	  <!-- Scroll to Top Button-->

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.virtualcondo.models.Usuario;
+import com.virtualcondo.persistencia.MensagemDAO;
+import com.virtualcondo.persistencia.UsuarioDAO;
 
 @WebServlet("/mensagem")
 public class Mensagem extends HttpServlet {
@@ -32,6 +34,7 @@ public class Mensagem extends HttpServlet {
 				return;
 			}else if (acao.equals("enviar")) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/enviar-mensagem.jsp");
+				request.setAttribute("moradores", new UsuarioDAO().listarMoradores());
 				dispatcher.forward(request, response);
 				return;
 			}
@@ -46,7 +49,17 @@ public class Mensagem extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		Usuario user = (Usuario) request.getSession().getAttribute("Usuario");
+		String assunto = request.getParameter("assunto");
+		String idDestinatario = request.getParameter("destinatario");
+		String mensagemF = request.getParameter("mensagem");
+		Usuario destinatario = new UsuarioDAO().buscarPorId(Integer.parseInt(idDestinatario));
+		
+		com.virtualcondo.models.Mensagem mensagem = new com.virtualcondo.models.Mensagem(assunto, mensagemF, destinatario, user);
+		new MensagemDAO().enviarMensagem(mensagem);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/mensagem-lista.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

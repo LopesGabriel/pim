@@ -66,11 +66,10 @@
             Veículos registrados</div>
           <div class="card-body">
               
-              <button type="button" style="margin-left: 2em; margin-bottom: 1em;"
-              class="btn btn-info"><a style="color: #fff;" href="cadastrar-veiculo">Registrar Veículo</a></button>
+              <a style="color: #fff;" class="btn btn-info ml-2 mb 1" href="cadastrar-veiculo">Registrar Veículo</a>
               
             <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered" id="dataTable">
                 <thead>
                   <tr>
                     <th>Modelo</th>

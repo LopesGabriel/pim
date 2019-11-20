@@ -51,7 +51,7 @@
                 </div>
                 <div class="mr-5">Você possui 7 mensagens!</div>
               </div>
-              <p class="card-footer text-white clearfix small z-1" href="">
+              <p class="card-footer text-white clearfix small z-1">
                 <span class="float-left">Suas mensagens</span>
               </p>
             </div>
@@ -69,7 +69,7 @@
             Caixa de entrada</div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered" id="dataTable">
                 <thead>
                   <tr>
                     <th>Assunto</th>

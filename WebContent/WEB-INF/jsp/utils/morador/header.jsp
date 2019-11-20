@@ -6,7 +6,7 @@
 <nav class="navbar navbar-expand navbar-dark bg-blue static-top">
   <a class="navbar-brand mr-1" href="index.html">Virtual Condo</a>
 
-  <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+  <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
     <i class="fas fa-bars"></i>
   </button>
 

@@ -106,7 +106,7 @@
 	              
 	        </div><!-- fim do row -->
 	          <div class="form-lavel-group mb-3">
-	            <button class="btn btn-primary"><a href="#" style="color: white;">Editar Perfil</a></button>
+	            <a href="#" class="btn btn-primary" style="color: white;">Editar Perfil</a>
 	          </div>
 	      </div><!-- fim do container -->
 	    </div>

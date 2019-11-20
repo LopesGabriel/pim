@@ -44,24 +44,24 @@
                 </ol>
 
                 <!-- Page Content -->
-                <form>
+                <form action="mensagem" method="POST">
                     <div class="form-label-group mb-3">
                         <input type="text" id="assuntoMensagem" name="assunto" placeholder="Assunto" class="form-control">
                         <label for="assuntoMensagem">Assunto</label>
                     </div>
                     <div class="input-group mb-3">
-                        <select class="custom-select" id="inputBloco">
+                        <select class="custom-select" id="inputBloco" name="destinatario">
                             <option selected disabled="disabled">Destinatário</option>
-                            <option>Matheus Lopes</option>
-                            <option>Gabriel Lopes</option>
-                            <option>Silvio Suguino</option>
+                            <c:forEach items="${moradores}" var="morador">
+                            	<option value="${morador.id}">${morador.nome}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div class="form-label-group mb-3">
                         <textarea class="form-control" id="textoMensagem" name="mensagem" placeholder="Mensagem"rows="3"></textarea>
                     </div>
                     <div class="form-lavel-group mb-3 col-12 row">
-                        <input type="button" id="inputSubmit" class="btn btn-primary form-control col-4" value="Enviar">
+                        <button type="submit" id="inputSubmit" class="btn btn-primary form-control col-4">Enviar</button>
                         <span class="col-4"></span>
                         <a href="mensagem" class="btn btn-danger form-control col-4">Cancelar</a>
                     </div>
@@ -83,7 +83,6 @@
     </div>
     <!-- /.content-wrapper -->
 
-  </div>
   <!-- /#wrapper -->
 
   <!-- Scroll to Top Button-->

@@ -12,6 +12,13 @@ public class Mensagem {
 
 	public Mensagem() {}
 
+	public Mensagem(String assunto, String mensagem, Usuario destinatario, Usuario remetente) {
+		this.assunto = assunto;
+		this.mensagem = mensagem;
+		this.destinatario = destinatario;
+		this.remetente = remetente;
+	}
+	
 	public Mensagem(Integer id, String assunto, String mensagem, Usuario destinatario, Usuario remetente, boolean sit) {
 		super();
 		this.id = id;
