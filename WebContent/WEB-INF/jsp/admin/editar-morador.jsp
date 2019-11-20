@@ -127,8 +127,8 @@
 
 <script>
 $(document).ready(function(){
-	$('.cpf').mask('000.000.000-00', {reverse: true});
-	$('.rg').mask('0.000.000', {reverse: true});
+	$('.cpf').mask('000.000.000-00');
+	$('.rg').mask('0.000.000');
 });
 </script>
 

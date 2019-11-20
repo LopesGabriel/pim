@@ -81,7 +81,7 @@
                 </tfoot>
                 <tbody>
                 	<c:forEach items="${moradores}" var="morador">
-	                  <tr data-cpf="${morador.cpf}">
+	                  <tr data-cpf="${morador.cpf}" data-nome="${morador.nome}">
 	                    <td>${morador.nome}</td>
 	                    <td>${morador.email}</td>
 	                    <td>
@@ -146,43 +146,63 @@ $(document).ready(function(){
 
 $(document).on('click', '#deletar-morador', function(){
 
-	var uId = $(this).data('id');
-	var linha = $(this).parent().data('cpf');
+	var uid = $(this).data('id');
+	var cpf = $(this).parent().parent().parent().data('cpf');
+	var nome = $(this).parent().parent().parent().data('nome');
+	var linha = $(this).parent().parent().parent();
 
-	$.ajax({
-		url: '/virtualcondo/moradores',
-		method: 'delete',
-		data: {uid: uId},
-		success: function(rs){
-			let ttl;
-			let msg;
-			let ex = rs.ex;
-
-			switch(rs.status){
-			case true:
-				ttl = '<span class="text-success"><i class="far fa-check-circle"></i> Sucesso</span>';
-				msg = rs.msg;
-				$(linha).remove();
-				break;
-			case false:
-				ttl = '<span class="text-danger"><i class="fas fa-exclamation"></i> Oops</span>';
-				msg = rs.msg;
-				if(ex) msg += '<br>' + ex;
-				break;
+	bootbox.confirm({
+		title: 'Deseja deletar o usuário?',
+		message: 'Nome: ' + nome + '<br>CPF: ' + cpf,
+		buttons:{
+			confirm:{
+				label: 'Sim',
+				className: 'btn-success'
+			},
+			cancel:{
+				label: 'Não',
+				className: 'btn-danger'
 			}
+		},
+		callback: function(confirmacao){
+			if(confirmacao){
+				$.ajax({
+					url: '/virtualcondo/moradores?uid=' + uid,
+					method: 'delete',
+					dataType: 'json',
+					success: function(rs){
+						var ttl;
+						var msg = "";
+						var ex = rs.ex;
 
-			bootbox.dialog({
-				title: ttl,
-				message: msg,
-				buttons:{
-					fechar:{
-						label: 'Fechar',
-						className: 'btn-danger',
-						callback: function(){}
+						switch(rs.status){
+						case true:
+							ttl = '<span class="text-success"><i class="far fa-check-circle"></i> Sucesso</span>';
+							msg = rs.msg;
+							linha.remove();
+							break;
+						case false:
+							ttl = '<span class="text-danger"><i class="fas fa-exclamation"></i> Oops</span>';
+							msg = rs.msg;
+							if(ex) msg += '<br>' + ex;
+							break;
+						}
+
+						bootbox.dialog({
+							title: ttl,
+							message: msg,
+							buttons:{
+								fechar:{
+									label: 'Fechar',
+									className: 'btn-danger',
+									callback: function(){}
+								}
+							}
+						});
+
 					}
-				}
-			});
-
+				});
+			}
 		}
 	});
 

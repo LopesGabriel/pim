@@ -20,7 +20,6 @@ public class DAOAdministrador {
 			"	(Select count(virtual_condo.usuario.id_usuario) From virtual_condo.usuario Where tipo_usuario_id = 3) As colaboradores,\r\n" + 
 			"	(Select count(virtual_condo.veiculo.id_veiculo) From virtual_condo.veiculo) As veiculos,\r\n" + 
 			"   (Select count(virtual_condo.visitante.id_visitante) From virtual_condo.visitante) As visitantes";
-		System.out.println(sql);
 
 		try {
 

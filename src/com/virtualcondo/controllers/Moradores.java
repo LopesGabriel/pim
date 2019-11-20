@@ -165,10 +165,10 @@ public class Moradores extends HttpServlet {
 
 		try {
 
-			Integer id = Integer.parseInt("uid");
-			boolean op = new UsuarioDAO().deletarPorId(id);
 			res.setContentType("json");
 			res.setCharacterEncoding("utf-8");
+			Integer id = Integer.parseInt(req.getParameter("uid"));
+			boolean op = new UsuarioDAO().deletarPorId(id);
 
 			if(op) {
 

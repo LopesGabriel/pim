@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.virtualcondo.connection.ConnectionFactory;
 import com.virtualcondo.models.Visitante;
@@ -85,6 +87,43 @@ public class VisitanteDAO {
 
 		return v;
 
+	}
+
+	public List<Visitante> listarVisitantes(){
+
+		List<Visitante> lista = new ArrayList<Visitante>();
+		String sql = "Select\r\n" + 
+			"	id_visitante, nome, cpf, rg, telefone\r\n" + 
+			"From virtual_condo.visitante;";
+
+		try {
+
+			PreparedStatement st = connection.prepareStatement(sql);
+			ResultSet rs = st.executeQuery();
+
+			while(rs.next()) {
+
+				Visitante v = new Visitante(
+					rs.getInt("id_visitante"),
+					rs.getString("nome"),
+					rs.getString("cpf"),
+					rs.getString("rg"),
+					rs.getString("telefone")
+				);
+				lista.add(v);
+
+			}
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return lista;
 	}
 
 }

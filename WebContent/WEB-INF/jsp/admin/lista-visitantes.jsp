@@ -9,18 +9,25 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	  <link rel="icon" href="../resources/imgs/Logo2.png" type="image/icon">
+	  <link rel="icon" href="./resources/imgs/Logo2.png" type="image/icon">
 	
 	<title>Virtual Condo</title>
 	
 	<!-- Custom fonts for this template-->
-	<link href="../vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="./vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
 	
 	<!-- Page level plugin CSS-->
-	<link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+	<link href="./vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 	
 	<!-- Custom styles for this template-->
-	<link href="../resources/css/sb-admin.css" rel="stylesheet">
+	<link href="./resources/css/sb-admin.css" rel="stylesheet">
+
+	<style>
+		.Clicar{
+			cursor: pointer;
+		}
+	</style>
+
 </head>
 <body id="page-top">
 
@@ -51,83 +58,56 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Registro de entrada</div>
+            Visitantes</div>
           <div class="card-body">
-              
-              <button type="button" style="margin-left: 2em; margin-bottom: 1em;" class="btn btn-info"><a style="color: #fff;" href="cadastro-visitante.html">Cadastrar visitante</a></button>
-              
+          
+            <a class="btn btn-primary mb-3" href="/virtualcondo/visitantes?acao=cadastrar">Cadastrar visitante</a>
+
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                     <th>Nome</th>
                     <th>Telefone</th>
-                    <th>E-mail</th>
-                    <th>Data de Registro</th>
-                    <th>Ultima entrada</th>
-                    <th>Opções</th>
+                    <th>CPF</th>
+                    <th>RG</th>
+                    <th>Ações</th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
                     <th>Nome</th>
                     <th>Telefone</th>
-                    <th>E-mail</th>
-                    <th>Data de Registro</th>
-                    <th>Ultima entrada</th>
-                    <th>Opções</th>
+                    <th>CPF</th>
+                    <th>RG</th>
+                    <th>Ações</th>
                   </tr>
                 </tfoot>
                 <tbody>
-                  <tr>
-                    <td>Gabriel de Oliveira</td>
-                    <td>(61) 9 8235-2349</td>
-                    <td>lopesgabriel@gmail.com</td>
-                    <td>02/05/2011</td>
-                    <td>15/11/2018</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-visitante.html"><i class="fas fa-edit"> Editar</i></a> | <a href="relatorio-visita.html"><i class="fas fa-edit"> Evento</i></a>
-                    </td>
-                  </tr>
-                    <tr>
-                    <td>Matheus de Oliveira</td>
-                    <td>(61) 9 8151-0636</td>
-                    <td>matlopes1999@gmail.com</td>
-                    <td>13/08/2011</td>
-                    <td>25/02/2019</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-visitante.html"><i class="fas fa-edit"> Editar</i></a> | <a href="relatorio-visita.html"><i class="fas fa-edit"> Evento</i></a>
-                    </td>
-                  </tr>
-                    <tr>
-                    <td>Silvio Suguino</td>
-                    <td>(61) 9 XXXX-XXXX</td>
-                    <td>silvio@gmail.com</td>
-                    <td>19/01/2014</td>
-                    <td>13/06/2017</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-visitante.html"><i class="fas fa-edit"> Editar</i></a> | <a href="relatorio-visita.html"><i class="fas fa-edit"> Evento</i></a>
-                    </td>
-                  </tr>
-                    <tr>
-                    <td>Exemplo</td>
-                    <td>(61) 9 XXXX-XXXX</td>
-                    <td>exemple@gmail.com</td>
-                    <td>11/04/2013</td>
-                    <td>20/03/2019</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-visitante.html"><i class="fas fa-edit"> Editar</i></a> | <a href="relatorio-visita.html"><i class="fas fa-edit"> Evento</i></a>
-                    </td>
-                  </tr>
+                	<c:forEach items="${visitantes}" var="visitante">
+	                	<tr data-nome="${visitante.nome}">
+		                    <td>${visitante.nome}</td>
+		                    <td>${visitante.telefone}</td>
+		                    <td>${visitante.cpf}</td>
+		                    <td>${visitante.rg}</td>
+		                    <td>
+		                    	<div class="mx-auto col-sm-12 col-lg-8">
+			                        <i id="deletar-visitante" class="fas fa-trash Clicar" data-toggle="tooltip" data-placement="top" title="Deletar"></i>
+			                        <a href="/virtualcondo/visitantes?acao=editar" style="padding-left: 33%;">
+			                        	<i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+			                        </a>
+			                        <a href="/virtualcondo/visitantes?acao=editar&id=${visitante.id}" class="float-right">
+			                        	<i class="fas fa-history" data-toggle="tooltip" data-placement="top" title="Histórico de visitas"></i>
+			                        </a>
+			                    </div>
+		                    </td>
+	                    </tr>
+                	</c:forEach>
                 </tbody>
               </table>
             </div>
           </div>
-          <div class="card-footer small text-muted">Ultima atualização dia 30/04</div>
+          <div id="ultima-att" class="card-footer small text-muted"></div>
         </div>
       </div>
       <!-- /.container-fluid -->
@@ -156,14 +136,22 @@
   <c:import url="../auxiliar/logout.jsp"></c:import>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="../resources/js/sb-admin.min.js"></script>
+  <script src="./resources/js/sb-admin.min.js"></script>
+
+<script>
+	$(document).ready(function(){
+		var data = new Date();
+		$("#ultima-att").html(data.toString());
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>
 
 </body>
 </html>

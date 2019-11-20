@@ -86,7 +86,7 @@
                 </div>
                 <div class="mr-5"><c:out value="${adminPage.visitantesCadastrados}"></c:out> visitantes cadastrados!</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="visitante-lista.html">
+              <a class="card-footer text-white clearfix small z-1" href="visitantes">
                 <span class="float-left">Administrar visitantes</span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>

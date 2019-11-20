@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.virtualcondo.models.IndexAdministrador;
 import com.virtualcondo.models.Usuario;
+import com.virtualcondo.persistencia.DAOAdministrador;
+import com.virtualcondo.persistencia.VisitaDAO;
 
 @WebServlet("/index")
 public class Index extends HttpServlet {
@@ -24,15 +27,23 @@ public class Index extends HttpServlet {
 		Usuario user = (Usuario) request.getSession().getAttribute("Usuario");
 		
 		if(user != null) {
-			if( user.getTipoUsu().getNivelAcesso().equals("Morador")) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/index-morador.jsp");
+			RequestDispatcher dispatcher = null;
+			switch(user.getTipoUsu().getId()) {
+			case 1:
+				dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/index-morador.jsp");
 				dispatcher.forward(request, response);
-				return;
-			}else if ( user.getTipoUsu().getNivelAcesso().equals("Síndico")) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/admin/index-admin.jsp");
+				break;
+			case 2:
+				IndexAdministrador iA = new DAOAdministrador().popularIndexAdmin();
+				iA.setVisitas(new VisitaDAO().listarVisitas());
+				request.setAttribute("adminPage", iA);
+				dispatcher = request.getRequestDispatcher("WEB-INF/jsp/admin/index-admin.jsp");
 				dispatcher.forward(request, response);
-				return;
+				break;
+			case 3:
+				break;
 			}
+			return;
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/index.jsp");
