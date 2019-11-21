@@ -93,7 +93,7 @@
 		                    <td>
 		                    	<div class="mx-auto col-sm-12 col-lg-8">
 			                        <i id="deletar-visitante" class="fas fa-trash Clicar" data-toggle="tooltip" data-placement="top" title="Deletar"></i>
-			                        <a href="/virtualcondo/visitantes?acao=editar" style="padding-left: 33%;">
+			                        <a href="/virtualcondo/visitantes?acao=editar&id=${visitante.id}" style="padding-left: 33%;">
 			                        	<i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
 			                        </a>
 			                        <a href="/virtualcondo/visitantes?acao=editar&id=${visitante.id}" class="float-right">

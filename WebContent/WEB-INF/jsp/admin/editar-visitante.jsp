@@ -9,18 +9,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	  <link rel="icon" href="../resources/imgs/Logo2.png" type="image/icon">
+	  <link rel="icon" href="./resources/imgs/Logo2.png" type="image/icon">
 	
 	<title>Virtual Condo</title>
 	
 	<!-- Custom fonts for this template-->
-	<link href="../vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="./vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
 	
 	<!-- Page level plugin CSS-->
-	<link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+	<link href="./vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 	
 	<!-- Custom styles for this template-->
-	<link href="../resources/css/sb-admin.css" rel="stylesheet">
+	<link href="./resources/css/sb-admin.css" rel="stylesheet">
 </head>
 <body id="page-top">
 
@@ -49,60 +49,30 @@
                 <!-- Page Content -->
                 <form>
                     <div class="form-label-group mb-3">
-                        <input type="text" id="inputNome" class="form-control" placeholder="Nome" value="Matheus de Oliveira Lopes" required autofocus>
-                        <label for="inputNome">Nome</label>
+                        <input type="text" id="nome" class="form-control" placeholder="Nome" value="${visitante.nome}" required autofocus>
+                        <label for="nome">Nome</label>
                     </div> 
                     <div class="form-label-group mb-3">
-                        <input type="text" id="inputCpf" class="form-control" value="059-099-301-17" placeholder="CPF">
-                        <label for="inputCpf">CPF</label>
+                        <input type="text" id="cpf" class="form-control" value="${visitante.cpf}" placeholder="CPF">
+                        <label for="cpf">CPF</label>
                     </div>
                     <div class="form-label-group mb-3">
-                        <input type="text" id="inputRg" class="form-control" placeholder="RG" value="3.174.547">
+                        <input type="text" id="inputRg" class="form-control" placeholder="RG" value="${visitante.rg}">
                         <label for="inputRg">RG</label>
                     </div>
                     <div class="form-label-group mb-3">
-                        <input type="text" id="inputEmail" class="form-control" placeholder="E-mail" value="matlopes1999@gmail.com">
-                        <label for="inputEmail">E-mail</label>
-                    </div>
-                    <div class="form-label-group mb-3">
-                        <input type="text" id="inputTelefone" class="form-control" placeholder="Telefone" value="(61) 9 8151-0636">
+                        <input type="text" id="inputTelefone" class="form-control" placeholder="Telefone" value="${visitante.telefone}">
                         <label for="inputTelefone">Telefone</label>
                     </div>
-                    <div class="mb-3 row">
-                        <span class="col-1"></span>
-                      <label for="inputDate" class="col-5 col-form-label">Data de Nascimento:</label>
-                      <input class="form-control col-5" type="date" id="inputDate" value="1999-01-13">
-                        <span class="col-1"></span>
-                    </div>
-                    <div class="input-group mb-3">
-                        <select class="custom-select" id="inputBloco">
-                            <option>Tipo de usuário</option>
-                            <option selected>Visitante</option>
-                        </select>
-                    </div>
+			          <div class="form-lavel-group mb-3 col-12 row">
+			          	<input type="button" id="inputSubmit" class="btn btn-primary form-control col-4" value="Confirmar">
+			          	<span class="col-4"></span>
+			          	<input type="button" id="inputCancelar" class="btn btn-danger form-control col-4" value="Cancelar">
+			          </div>
               </form>
-            </div><!-- Col dos campos de texto -->
-              
-            <div id="coluna2" class="col">
-                
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item active">Imagem de Perfil</li>
-                </ol>
-                
-                <img class="rounded mx-auto d-block mb-3" src="../resources/imgs/Foto_prefil.png" width="300" height="400">
-                
-                <div class="form-group">
-                    <label for="exampleFormControlFile1">Adicionar imagem</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                </div>
             </div>
               
         </div><!-- fim do row -->
-          <div class="form-lavel-group mb-3 col-12 row">
-                <input type="button" id="inputSubmit" class="btn btn-primary form-control col-4" value="Confirmar">
-                <span class="col-4"></span>
-                <input type="button" id="inputCancelar" class="btn btn-danger form-control col-4" value="Cancelar">
-            </div>
       </div><!-- fim do container -->
     </div>
       <!-- /.container-fluid -->
@@ -129,14 +99,22 @@
   <c:import url="../auxiliar/logout.jsp"></c:import>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="../resources/js/sb-admin.min.js"></script>
+  <script src="./resources/js/sb-admin.min.js"></script>
+<script>
+	$(document).ready(function(){
 
+		$('#cpf').mask('000.000.000-00');
+		$('#rg').mask('0.000.000');
+		$('#telefone').mask('(00) 0 0000-0000');
+
+	});
+</script>
 </body>
 </html>

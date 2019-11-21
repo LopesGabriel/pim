@@ -67,8 +67,42 @@ public class Visitantes extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(req, res);
+
+		Usuario u = (Usuario) req.getSession().getAttribute("Usuario");
+		RequestDispatcher view = null;
+		req.setCharacterEncoding("utf-8");
+
+		String nome = req.getParameter("nome");
+		String rg = req.getParameter("rg");
+		String cpf = req.getParameter("cpf");
+		String telefone = req.getParameter("telefone");
+
+		if(u != null) {
+			try {
+
+				Visitante v = new Visitante(0, nome, cpf, rg, telefone);
+				boolean op = new VisitanteDAO().salvarVisitante(v);
+
+				if(op) {
+					req.setAttribute("msg", nome + ", foi cadastrado com sucesso!");
+					view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-visitante.jsp");
+				}
+				else {
+					req.setAttribute("msg", "Não foi possível cadastrar o visitante!");
+					view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-visitante.jsp");
+				}
+				view.forward(req, res);
+				return;
+
+			}catch(Exception e) {
+				e.printStackTrace();
+				req.setAttribute("msg", e.getMessage());
+				view = req.getRequestDispatcher("WEB-INF/auxiliar/error.jsp");
+			}
+		}else {
+			res.sendRedirect("/virtualcondo/login");
+		}
+
 	}
 
 	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

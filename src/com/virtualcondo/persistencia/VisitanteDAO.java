@@ -24,8 +24,9 @@ public class VisitanteDAO {
 		this.connectionReciclada = true;
 	}
 
-	public void salvarVisitante(Visitante v) {
+	public boolean salvarVisitante(Visitante v) {
 
+		boolean op = false;
 		String sql = "Insert into virtual_condo.visitante(nome, cpf, rg, telefone) Values(?, ?, ?, ?)";
 
 		try {
@@ -36,9 +37,11 @@ public class VisitanteDAO {
 			st.setString(3, v.getRg());
 			st.setString(4, v.getRg());
 			st.execute();
+			op = true;
 
 		}catch(SQLException e) {
 			e.printStackTrace();
+			op = false;
 			try {
 				connection.rollback();
 			}catch(SQLException e1) {
@@ -52,6 +55,7 @@ public class VisitanteDAO {
 				e.printStackTrace();
 			}
 		}
+		return op;
 
 	}
 

@@ -47,36 +47,42 @@
                 </ol>
 
                 <!-- Page Content -->
-                <form class="form-row">
+                <form class="form-row" method="post" action="/virtualcondo/visitantes">
                     <div class="form-label-group mb-3 col-sm-12 col-lg-6">
-                        <input type="text" id="inputNome" class="form-control" placeholder="Nome" required autofocus>
-                        <label for="inputNome">Nome</label>
+                        <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome" required autofocus>
+                        <label for="nome">Nome</label>
                     </div> 
                     <div class="form-label-group mb-3 col-sm-12 col-lg-6">
-                        <input type="text" id="inputCpf" class="form-control" placeholder="CPF">
-                        <label for="inputCpf">CPF</label>
+                        <input type="text" id="cpf" name="cpf" class="form-control" placeholder="CPF">
+                        <label for="cpf">CPF</label>
                     </div>
                     <div class="form-label-group mb-3 col-sm-12 col-lg-6">
-                        <input type="text" id="inputRg" class="form-control" placeholder="RG">
-                        <label for="inputRg">RG</label>
+                        <input type="text" id="rg" name="rg" class="form-control" placeholder="RG">
+                        <label for="rg">RG</label>
                     </div>
                     <div class="form-label-group mb-3 col-sm-12 col-lg-6">
-                        <input type="text" id="inputTelefone" class="form-control" placeholder="Telefone">
-                        <label for="inputTelefone">Telefone</label>
+                        <input type="text" id="telefone" name="telefone" class="form-control" placeholder="Telefone">
+                        <label for="telefone">Telefone</label>
                     </div>
+			          <div class="col-12">
+				          <div class="col-sm-12 col-lg-12">
+				          	 <input type="submit" class="btn btn-primary form-control col-4" value="Confirmar">
+				          	 <a href="/virtualcondo/visitantes" class="btn btn-danger col-4 float-right">Voltar</a>
+				          </div>
+			          </div>
               </form>
             </div>
               
         </div><!-- fim do row -->
-          <div class="row">
-          	<div class="mx-auto col-sm-12 col-lg-12">
-          		<input type="submit" class="btn btn-primary form-control col-4" value="Confirmar">
-          		<a href="/virtualcondo/visitantes" class="btn btn-danger col-4 float-right">Voltar</a>
-          	</div>
-          </div>
       </div><!-- fim do container -->
+      <c:if test="${msg != null}">
+	      <div class="container">
+	      	<div class="alert alert-secondary text-center mt-4" role="alert">
+	      		${msg}
+	      	</div>
+	      </div>
+      </c:if>
     </div>
-      <!-- /.container-fluid -->
 
       <!-- Sticky Footer -->
       <footer class="sticky-footer">
@@ -101,6 +107,7 @@
 
   <!-- Bootstrap core JavaScript-->
   <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/jquery/jquery.mask.js"></script>
   <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -108,6 +115,16 @@
 
   <!-- Custom scripts for all pages-->
   <script src="./resources/js/sb-admin.min.js"></script>
+
+<script>
+	$(document).ready(function(){
+
+		$('#cpf').mask('000.000.000-00');
+		$('#rg').mask('0.000.000');
+		$('#telefone').mask('(00) 0 0000-0000');
+
+	});
+</script>
 
 </body>
 </html>
