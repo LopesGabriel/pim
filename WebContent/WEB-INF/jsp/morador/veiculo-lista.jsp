@@ -66,7 +66,9 @@
             Veículos registrados</div>
           <div class="card-body">
               
-              <a style="color: #fff;" class="btn btn-info ml-2 mb 1" href="cadastrar-veiculo">Registrar Veículo</a>
+            <c:if test="${Usuario.veiculo.marca == null}">
+            	<a style="color: #fff;" class="btn btn-info ml-2 mb-4" href="cadastrar-veiculo">Registrar Veículo</a>
+            </c:if>
               
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable">
@@ -179,6 +181,7 @@
   		    			url: '/virtualcondo/veiculo?id='+id,
   		    			method: 'Delete',
   		    			success: function(rs){
+  		    				window.location.assign('/virtualcondo/veiculo?acao=listar');
   		    				confirmModal = bootbox.dialog({
   		    					size: 'small',
   		    					title: '<span class="text-success">Sucesso <i class="far fa-check-circle text-rigth"></i><span>',

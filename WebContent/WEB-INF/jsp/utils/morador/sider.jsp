@@ -18,7 +18,9 @@
     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
       <h6 class="dropdown-header">Opções de veículos</h6>
       <a class="dropdown-item" href="veiculo?acao=listar">Meus veículos</a>
-      <a class="dropdown-item" href="cadastrar-veiculo">Registrar veículo</a>
+      <c:if test="${Usuario.veiculo.marca == null}">
+      	<a class="dropdown-item" href="cadastrar-veiculo">Registrar veículo</a>
+      </c:if>
     </div>
   </li>
   <li class="nav-item dropdown">

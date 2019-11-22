@@ -52,6 +52,7 @@ public class CadastrarVeiculo extends HttpServlet {
 		
 		if(veiculo != null) {
 			veiculoDao.salvarVeiculo(veiculo, user);
+			user.setVeiculo(veiculo);
 
 			response.sendRedirect("/virtualcondo/veiculo?acao=listar");
 //			RequestDispatcher view = request.getRequestDispatcher("/veiculo");

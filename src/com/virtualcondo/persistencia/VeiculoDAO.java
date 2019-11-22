@@ -142,7 +142,7 @@ public class VeiculoDAO {
 		String sql1 = "DELETE FROM virtual_condo.veiculo WHERE id_veiculo = ?";
 		try {
 			PreparedStatement st = connection.prepareStatement(sql);
-			st.setInt(1, user.getVeiculo().getId());
+			st.setInt(1, user.getId());
 			st.execute();
 			
 			PreparedStatement st1 = connection.prepareStatement(sql1);
