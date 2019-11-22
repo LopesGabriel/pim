@@ -46,18 +46,18 @@
                 <form>
                 	<input type="number" value="id" hidden="true" />
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="inputRemetente" readonly value="De: Matheus Lopes">
+                        <input type="text" class="form-control" id="inputRemetente" readonly value="De: ${mensagem.remetente.nome}">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="inputRemetente" readonly value="Tenha um bom dia">
+                        <input type="text" class="form-control" id="inputRemetente" readonly value="${mensagem.assunto}">
                     </div>
                     <div class="input-group mb-3">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly>Bom dia vizinho, estou mandando essa mensagem para você ver como que funciona o sistema de mensagens.</textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly>${mensagem.mensagem}</textarea>
                     </div>
                     <div class="form-lavel-group mb-3 col-12 row">
                         <a href="mensagem" class="btn btn-primary form-control col-4">Voltar</a>
                         <span class="col-4"></span>
-                        <input type="button" id="inputCancelar" class="btn btn-danger form-control col-4" value="Deletar">
+                        <span id="deletar-mensagem" data-id="${mensagem.id}" class="btn btn-danger form-control col-4">Deletar</span>
                     </div>
               </form>
             </div><!-- Col dos campos de texto -->
@@ -95,6 +95,72 @@
 
   <!-- Custom scripts for all pages-->
   <script src="./resources/js/sb-admin.min.js"></script>
+  
+  <!-- BootBox JS -->
+  <script src="./vendor/bootbox/bootbox.min.js"></script>
+  <script src="./vendor/bootbox/bootbox.locales.min.js"></script>
+  <script>
+  $(document).on('click', '#deletar-mensagem', function(){
+
+		var id = $(this).data('id');
+
+		bootbox.confirm({
+			title: 'Deletar mensagem',
+			message: 'Deseja deletar a mensagem?',
+			buttons:{
+				confirm:{
+					label: 'Sim',
+					className: 'btn-success'
+				},
+				cancel:{
+					label: 'Não',
+					className: 'btn-danger'
+				}
+			},
+			callback: function(confirmacao){
+				if(confirmacao){
+					$.ajax({
+						url: '/virtualcondo/mensagem?id=' + id,
+						method: 'delete',
+						dataType: 'json',
+						success: function(rs){
+							var ttl;
+							var msg = "";
+							var ex = rs.ex;
+
+							switch(rs.status){
+							case true:
+								ttl = '<span class="text-success"><i class="far fa-check-circle"></i> Sucesso</span>';
+								msg = rs.msg;
+								window.location.assign('/virtualcondo/mensagem');
+								break;
+							case false:
+								ttl = '<span class="text-danger"><i class="fas fa-exclamation"></i> Oops</span>';
+								msg = rs.msg;
+								if(ex) msg += '<br>' + ex;
+								break;
+							}
+
+							bootbox.dialog({
+								title: ttl,
+								message: msg,
+								buttons:{
+									fechar:{
+										label: 'Fechar',
+										className: 'btn-danger',
+										callback: function(){}
+									}
+								}
+							});
+
+						}
+					});
+				}
+			}
+		});
+
+	});
+  </script>
 
 </body>
 </html>

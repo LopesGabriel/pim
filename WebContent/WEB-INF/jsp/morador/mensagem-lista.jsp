@@ -21,6 +21,18 @@
 	
 	<!-- Custom styles for this template-->
 	<link href="./resources/css/sb-admin.css" rel="stylesheet">
+	
+	<style>
+		.Clicar {
+			cursor: pointer;
+		}
+		
+		.Clicar:hover{
+			color: #b71c1c;
+			transition: 500ms;
+		}
+	</style>
+	
 </head>
 <body id="page-top">
 
@@ -49,7 +61,7 @@
                 <div class="card-body-icon">
                   <i class="fas fa-envelope"></i>
                 </div>
-                <div class="mr-5">Você possui 7 mensagens!</div>
+                <div class="mr-5">Você possui ${qtdMensagem} mensagens!</div>
               </div>
               <p class="card-footer text-white clearfix small z-1">
                 <span class="float-left">Suas mensagens</span>
@@ -85,30 +97,29 @@
                   </tr>
                 </tfoot>
                 <tbody>
-                  <tr>
-                    <td>Queria lhe desejar um bom dia</td>
-                    <td>Matheus Lopes</td>
-                    <td>
-                        <a href="mensagem?acao=visualizar"><i class="fas fa-envelope-open-text" style="padding-right: 10px;"> Visualizar</i></a>
-                        <a href="#"><i class="fas fa-trash"> Remover</i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Reunião marcada para as 15:00</td>
-                    <td>Silvio Suguino</td>
-                    <td>
-                        <a href="mensagem-visualizar.html"><i class="fas fa-envelope-open-text" style="padding-right: 10px;"> Visualizar</i></a>
-                        <a href="#"><i class="fas fa-trash"> Remover</i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Bem vindo</td>
-                    <td>Gabriel Lopes</td>
-                    <td>
-                        <a href="mensagem-visualizar.html"><i class="fas fa-envelope-open-text" style="padding-right: 10px;"> Visualizar</i></a>
-                        <a href="#"><i class="fas fa-trash"> Remover</i></a>
-                    </td>
-                  </tr>
+                <c:forEach items="${mensagens}" var="mensagem">
+               	 	<tr>
+	                    <td>${mensagem.assunto}</td>
+	                    <td>${mensagem.remetente.nome}</td>
+	                    <td>
+	                    	<c:choose>
+	                    		<c:when test="${mensagem.sit}">
+	                    			<a style="text-decoration: none" href="mensagem?acao=visualizar&id=${mensagem.id}">
+			                        	<i class="fas fa-envelope-open-text" style="padding-right: 10px;"> Abrir</i>
+			                        </a>
+	                    		</c:when>
+	                    		<c:otherwise>
+	                    			<a style="text-decoration: none" href="mensagem?acao=visualizar&id=${mensagem.id}">
+			                        	<i class="fas fa-envelope" style="padding-right: 10px;"> Abrir</i>
+			                        </a>
+	                    		</c:otherwise>
+	                    	</c:choose>
+	                        <span class="Clicar" id="deletar-mensagem" data-id="${mensagem.id}">
+	                        	<i class="fas fa-trash"> Remover</i>
+	                        </span>
+	                    </td>
+                  	</tr>
+                </c:forEach>
                 </tbody>
               </table>
             </div>
@@ -151,6 +162,74 @@
 
   <!-- Custom scripts for all pages-->
   <script src="./resources/js/sb-admin.min.js"></script>
+  
+  <!-- Bootbox -->
+  <script src="./vendor/bootbox/bootbox.all.min.js"></script>
+  
+  <script>
+$(document).on('click', '#deletar-mensagem', function(){
+
+	var id = $(this).data('id');
+	var linha = $(this).parent().parent();
+
+	bootbox.confirm({
+		title: 'Deletar mensagem',
+		message: 'Deseja deletar a mensagem?',
+		buttons:{
+			confirm:{
+				label: 'Sim',
+				className: 'btn-success'
+			},
+			cancel:{
+				label: 'Não',
+				className: 'btn-danger'
+			}
+		},
+		callback: function(confirmacao){
+			if(confirmacao){
+				$.ajax({
+					url: '/virtualcondo/mensagem?id=' + id,
+					method: 'delete',
+					dataType: 'json',
+					success: function(rs){
+						var ttl;
+						var msg = "";
+						var ex = rs.ex;
+
+						switch(rs.status){
+						case true:
+							ttl = '<span class="text-success"><i class="far fa-check-circle"></i> Sucesso</span>';
+							msg = rs.msg;
+							linha.remove();
+							break;
+						case false:
+							ttl = '<span class="text-danger"><i class="fas fa-exclamation"></i> Oops</span>';
+							msg = rs.msg;
+							if(ex) msg += '<br>' + ex;
+							break;
+						}
+
+						bootbox.dialog({
+							title: ttl,
+							message: msg,
+							buttons:{
+								fechar:{
+									label: 'Fechar',
+									className: 'btn-danger',
+									callback: function(){}
+								}
+							}
+						});
+
+					}
+				});
+			}
+		}
+	});
+
+});
+
+</script>
 
 </body>
 </html>

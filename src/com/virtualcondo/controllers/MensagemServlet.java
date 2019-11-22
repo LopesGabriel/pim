@@ -9,15 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.virtualcondo.models.Mensagem;
 import com.virtualcondo.models.Usuario;
 import com.virtualcondo.persistencia.MensagemDAO;
 import com.virtualcondo.persistencia.UsuarioDAO;
+import com.virtualcondo.utils.GerarJson;
 
 @WebServlet("/mensagem")
-public class Mensagem extends HttpServlet {
+public class MensagemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public Mensagem() {
+    public MensagemServlet() {
         super();
     }
 
@@ -25,10 +27,13 @@ public class Mensagem extends HttpServlet {
 		
 		Usuario user = (Usuario) request.getSession().getAttribute("Usuario");
 		String acao = request.getParameter("acao");
+		String id = request.getParameter("id");
 		
 		if(acao != null) {
 			
 			if(acao.equals("visualizar")) {
+				new MensagemDAO().setVisualizada(Integer.parseInt(id));
+				request.setAttribute("mensagem", new MensagemDAO().buscarPorId(Integer.parseInt(id)));
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/mensagem-visualizar.jsp");
 				dispatcher.forward(request, response);
 				return;
@@ -43,23 +48,52 @@ public class Mensagem extends HttpServlet {
 		
 		
 		if(user.getTipoUsu().getNivelAcesso().equals("Morador")) {
+			request.setAttribute("qtdMensagem", new MensagemDAO().quantidadeDeMensagens(user));
+			request.setAttribute("mensagens", new MensagemDAO().listarMensagemDoUsuario(user));
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/mensagem-lista.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		
 		Usuario user = (Usuario) request.getSession().getAttribute("Usuario");
 		String assunto = request.getParameter("assunto");
 		String idDestinatario = request.getParameter("destinatario");
 		String mensagemF = request.getParameter("mensagem");
 		Usuario destinatario = new UsuarioDAO().buscarPorId(Integer.parseInt(idDestinatario));
 		
-		com.virtualcondo.models.Mensagem mensagem = new com.virtualcondo.models.Mensagem(assunto, mensagemF, destinatario, user);
+		Mensagem mensagem = new Mensagem(assunto, mensagemF, destinatario, user);
 		new MensagemDAO().enviarMensagem(mensagem);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/mensagem-lista.jsp");
-		dispatcher.forward(request, response);
+		response.sendRedirect("mensagem");
+	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+
+			response.setContentType("json");
+			response.setCharacterEncoding("utf-8");
+			Integer id = Integer.parseInt(request.getParameter("id"));
+			boolean op = new MensagemDAO().deletarMensagemPorId(id);
+
+			if(op) {
+
+				response.getWriter().write(GerarJson.sucesso("Mensagem deletada com sucesso!"));
+
+			}
+			else {
+
+				response.getWriter().write(GerarJson.erro("Não foi possível deletar a mensagem!", null));
+
+			}
+
+		}catch(Exception e) {
+			e.printStackTrace();
+			response.getWriter().write(GerarJson.erro("Não foi possível deletar a mensagem!", e.getMessage()));
+		}
 	}
 
 }
