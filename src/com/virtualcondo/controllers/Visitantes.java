@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +15,10 @@ import javax.servlet.http.HttpSession;
 import com.virtualcondo.models.Usuario;
 import com.virtualcondo.models.Visitante;
 import com.virtualcondo.persistencia.VisitanteDAO;
+import com.virtualcondo.utils.GerarJson;
 
 @WebServlet("/visitantes")
+@MultipartConfig
 public class Visitantes extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -71,42 +74,58 @@ public class Visitantes extends HttpServlet {
 		Usuario u = (Usuario) req.getSession().getAttribute("Usuario");
 		RequestDispatcher view = null;
 		req.setCharacterEncoding("utf-8");
+		res.setCharacterEncoding("utf-8");
 
 		String nome = req.getParameter("nome");
 		String rg = req.getParameter("rg");
 		String cpf = req.getParameter("cpf");
 		String telefone = req.getParameter("telefone");
+		String acao = req.getParameter("acao");
+		if(acao == null) acao = "inserir";
 
 		if(u != null) {
-			try {
+			if(acao.equals("editar")) {
+				try {
+					Integer id = Integer.parseInt(req.getParameter("uid"));
+					Visitante v = new Visitante(id, nome, cpf, rg, telefone);
+					boolean op = new VisitanteDAO().editarVisitante(v);
 
-				Visitante v = new Visitante(0, nome, cpf, rg, telefone);
-				boolean op = new VisitanteDAO().salvarVisitante(v);
+					res.setContentType("json");
 
-				if(op) {
-					req.setAttribute("msg", nome + ", foi cadastrado com sucesso!");
-					view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-visitante.jsp");
+					if(op) res.getWriter().write(GerarJson.sucesso("Visitante atualizado com sucesso!"));
+					else res.getWriter().write(GerarJson.erro("Erro ao atualizar.", null));
+				}catch(Exception e) {
+					e.printStackTrace();
+					res.getWriter().write(GerarJson.erro("Erro ao atualizar.", e.getMessage()));
 				}
-				else {
-					req.setAttribute("msg", "Não foi possível cadastrar o visitante!");
-					view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-visitante.jsp");
-				}
-				view.forward(req, res);
 				return;
-
-			}catch(Exception e) {
-				e.printStackTrace();
-				req.setAttribute("msg", e.getMessage());
-				view = req.getRequestDispatcher("WEB-INF/auxiliar/error.jsp");
+			}else {
+				try {
+					
+					Visitante v = new Visitante(0, nome, cpf, rg, telefone);
+					boolean op = new VisitanteDAO().salvarVisitante(v);
+					
+					if(op) {
+						req.setAttribute("msg", nome + ", foi cadastrado com sucesso!");
+						view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-visitante.jsp");
+					}
+					else {
+						req.setAttribute("msg", "Não foi possível cadastrar o visitante!");
+						view = req.getRequestDispatcher("WEB-INF/jsp/admin/cadastro-visitante.jsp");
+					}
+					view.forward(req, res);
+					return;
+					
+				}catch(Exception e) {
+					e.printStackTrace();
+					req.setAttribute("msg", e.getMessage());
+					view = req.getRequestDispatcher("WEB-INF/auxiliar/error.jsp");
+				}
 			}
 		}else {
 			res.sendRedirect("/virtualcondo/login");
 		}
 
-	}
-
-	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

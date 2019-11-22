@@ -35,7 +35,7 @@ public class VisitanteDAO {
 			st.setString(1, v.getNome());
 			st.setString(2, v.getCpf());
 			st.setString(3, v.getRg());
-			st.setString(4, v.getRg());
+			st.setString(4, v.getTelefone());
 			st.execute();
 			op = true;
 
@@ -128,6 +128,39 @@ public class VisitanteDAO {
 			}
 		}
 		return lista;
+	}
+
+	public boolean editarVisitante(Visitante v) {
+
+		boolean op = false;
+		String sql = "Update virtual_condo.visitante Set nome = ?, cpf = ?, rg = ?, telefone = ? Where id_visitante = ?";
+
+		try {
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setString(1, v.getNome());
+			st.setString(2, v.getCpf());
+			st.setString(3, v.getRg());
+			st.setString(4, v.getTelefone());
+			st.setInt(5, v.getId());
+			st.execute();
+			op = true;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			op = false;
+			try {
+				connection.rollback();
+			}catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally {
+			try {
+				connection.commit();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return op;
+
 	}
 
 }

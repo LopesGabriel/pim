@@ -57,20 +57,23 @@
                         <label for="cpf">CPF</label>
                     </div>
                     <div class="form-label-group mb-3">
-                        <input type="text" id="inputRg" class="form-control" placeholder="RG" value="${visitante.rg}">
-                        <label for="inputRg">RG</label>
+                        <input type="text" id="rg" class="form-control" placeholder="RG" value="${visitante.rg}">
+                        <label for="rg">RG</label>
                     </div>
                     <div class="form-label-group mb-3">
-                        <input type="text" id="inputTelefone" class="form-control" placeholder="Telefone" value="${visitante.telefone}">
-                        <label for="inputTelefone">Telefone</label>
+                        <input type="text" id="telefone" class="form-control" placeholder="Telefone" value="${visitante.telefone}">
+                        <label for="telefone">Telefone</label>
                     </div>
-			          <div class="form-lavel-group mb-3 col-12 row">
-			          	<input type="button" id="inputSubmit" class="btn btn-primary form-control col-4" value="Confirmar">
-			          	<span class="col-4"></span>
-			          	<input type="button" id="inputCancelar" class="btn btn-danger form-control col-4" value="Cancelar">
-			          </div>
+                    <input id="uid" type="hidden" value="${visitante.id}">
               </form>
             </div>
+
+		<div class="col-12 mx-auto">
+			<button id="btn-confirmar" class="btn btn-primary col-sm-4">Confirmar</button>
+			<div class="col-sm-4 float-right">
+				<a href="/virtualcondo/visitantes" class="btn btn-danger col-sm-12">Voltar</a>
+			</div>
+		</div>
               
         </div><!-- fim do row -->
       </div><!-- fim do container -->
@@ -100,6 +103,8 @@
 
   <!-- Bootstrap core JavaScript-->
   <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/jquery/jquery.mask.js"></script>
+  <script src="./vendor/bootbox/bootbox.all.min.js"></script>
   <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -113,6 +118,94 @@
 		$('#cpf').mask('000.000.000-00');
 		$('#rg').mask('0.000.000');
 		$('#telefone').mask('(00) 0 0000-0000');
+
+	});
+
+	$(document).on('click', '#btn-confirmar', function(){
+
+		bootbox.confirm({
+			size: 'small',
+			title: 'Editar',
+			message: 'Deseja atualizar o visitante?',
+			buttons:{
+				confirm:{
+					label: 'Sim',
+					className: 'btn-success'
+				},
+				cancel:{
+					label: 'Não',
+					className: 'btn-danger'
+				}
+			},
+			callback: function(resultado){
+				if(resultado){
+
+					var dados = new FormData();
+					dados.append('uid', $('#uid').val());
+					dados.append('nome', $('#nome').val());
+					dados.append('cpf', $('#cpf').val());
+					dados.append('rg', $('#rg').val());
+					dados.append('telefone', $('#telefone').val());
+					dados.append('acao', "editar");
+
+					$.ajax({
+						url: '/virtualcondo/visitantes',
+						method: 'POST',
+						data: dados,
+						processData: false,
+						cache: false,
+						contentType: false,
+						dataType: 'json',
+			            success: function(rs){
+			            	switch(rs.status){
+			            	case true:
+			            		bootbox.dialog({
+			            			size: 'small',
+			            			title: 'Sucesso!',
+			            			message: rs.msg,
+			            			buttons:{
+			            				fechar:{
+			            					label: 'Fechar',
+			            					className: 'btn-danger',
+			            					callback: function(){}
+			            				}
+			            			}
+			            		});
+			            		break;
+			            	case false:
+			            		bootbox.dialog({
+			            			size: 'small',
+			            			title: 'Erro!',
+			            			message: rs.msg + '<br>' + rs.ex,
+			            			buttons:{
+			            				fechar:{
+			            					label: 'Fechar',
+			            					className: 'btn-danger',
+			            					callback: function(){}
+			            				}
+			            			}
+			            		});
+			            		break;
+			            	}
+			            },
+			            error: function(requestObject, error, errorThrow){
+		            		bootbox.dialog({
+		            			size: 'small',
+		            			title: 'Erro!',
+		            			message: error.message,
+		            			buttons:{
+		            				fechar:{
+		            					label: 'Fechar',
+		            					className: 'btn-danger',
+		            					callback: function(){}
+		            				}
+		            			}
+		            		});
+			            }
+					});
+				}
+			}
+		});
 
 	});
 </script>
