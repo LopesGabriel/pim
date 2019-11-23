@@ -38,12 +38,9 @@
 
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
-<<<<<<< HEAD
           <li class="breadcrumb-item">
-            <a href="/virtualcondo/index">Painel</a>
+            <a href="/virtualcondo/index">Síndico</a>
           </li>
-=======
->>>>>>> b23077206553696708b4ee1c012db9fa83e8b375
           <li class="breadcrumb-item active">Visão geral</li>
         </ol>
 
@@ -120,7 +117,9 @@
           <div class="card-header">
             <i class="fas fa-table"></i>
      		Registro de entrada
-     		<div class="float-right"><a href="/virtualcondo/visita"><i class="fas fa-table" title="Cadastrar nova visita"></i></a></div>
+     		<div class="float-right">
+     			<a href="/virtualcondo/visita"><i class="fas fa-plus-circle" data-toggle="tooltip" data-placement="left" title="Cadastrar nova visita"></i></a>
+     		</div>
      	  </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -150,7 +149,15 @@
 			                	<fmt:formatDate value="${visita.dtEntrada}" pattern="dd/MM/yyyy HH:mm"/>
 			                </td>
 			                <td>
-			                	<fmt:formatDate value="${visita.dtSaida}" pattern="dd/MM/yyyy HH:mm"/>
+			                	<c:choose>
+			                		<c:when test="${visita.dtSaida != null}">
+			                			<fmt:formatDate value="${visita.dtSaida}" pattern="dd/MM/yyyy HH:mm"/>
+			                		</c:when>
+			                		<c:otherwise>
+			                			<i id="registrar-saida" data-id="${visita.id}" class="fas fa-check-double float-right Clicar" 
+			                				data-toggle="tooltip" title="Cadastrar saída" data-placement="left"></i>
+			                		</c:otherwise>
+			                	</c:choose>
 			                </td>
 		                </tr>
                 	</c:forEach>
@@ -196,6 +203,7 @@
 
   <!-- Page level plugin JavaScript-->
   <script src="./vendor/chart.js/Chart.min.js"></script>
+  <script src="./vendor/bootbox/bootbox.all.min.js"></script>
   <script src="./vendor/datatables/jquery.dataTables.js"></script>
   <script src="./vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
@@ -205,6 +213,16 @@
   <!-- Demo scripts for this page-->
   <script src="./resources/js/demo/datatables-demo.js"></script>
   <script src="./resources/js/demo/chart-area-demo.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+
+	$(document).on('click', '#registrar-saida', function(){
+		
+	});
+</script>
 
 </body>
 </html>

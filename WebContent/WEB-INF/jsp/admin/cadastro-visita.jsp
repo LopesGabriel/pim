@@ -50,32 +50,42 @@
                 </ol>
 
                 <!-- Page Content -->
-                <form class="form-row">
+                <form class="form-row" method="post" action="visita">
                     <div class="form-group col-sm-12 col-lg-6">
                     	<label for="visitante">Visitante</label>
-                        <select class="custom-select" id="visitante">
+                        <select class="custom-select" name="visitante" id="visitante">
                             <optgroup label="Visitantes Cadastrados">
-                            	<option value="0" disabled selected>Selecione um visitante</option>
                             	<c:forEach items="${visitantes}" var="visitante">
                             		<option value="${visitante.id}">${visitante.nome}</option>
                             	</c:forEach>
                             </optgroup>
                         </select>
                     </div>
-                    <div class="form-group">
-                      <label for="inputDate">Data da visita:</label>
-                      <input class="form-control" type="datetime-local" id="inputDate">
+                    <div class="form-group col-sm-12 col-lg-6">
+                    	<label for="responsavel">Responsável</label>
+                    	<select class="custom-select" name="morador" id="morador">
+                    		<optgroup label="Moradores">
+                    			<c:forEach items="${moradores}" var="morador">
+	                    			<option value="${morador.id}">${morador.nome}</option>
+                    			</c:forEach>
+                    		</optgroup>
+                    	</select>
                     </div>
-                    
+                    <div class="form-group col-sm-12">
+                    	<input type="submit" class="btn btn-primary col-sm-5" value="Confirmar">
+                    	<a href="index" class="btn btn-danger col-sm-5 float-right">Voltar</a>
+                    </div>
               </form>
             </div><!-- Col dos campos de texto -->
-          
-          <div class="form-lavel-group mb-3 col-12 row">
-                <input type="button" id="inputSubmit" class="btn btn-primary form-control col-4" value="Confirmar">
-                <span class="col-4"></span>
-                <input type="button" id="inputCancelar" class="btn btn-danger form-control col-4" value="Cancelar">
-            </div>
+
       </div><!-- fim do container -->
+      <div class="container">
+      	<c:if test="${msg != null}">
+      		<div class="alert alert-secondary text-center" role="alert">
+      			${msg}
+      		</div>
+      	</c:if>
+      </div>
     </div>
       <!-- /.container-fluid -->
 
