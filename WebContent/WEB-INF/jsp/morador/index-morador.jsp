@@ -172,8 +172,8 @@
 	    <i class="fas fa-angle-up"></i>
 	  </a>
 	
-  <!-- Logout Modal-->
-  <c:import url="../auxiliar/logout.jsp"></c:import>
+	  <!-- Logout Modal-->
+	  <c:import url="../auxiliar/logout.jsp"></c:import>
 	
 	  <!-- Bootstrap core JavaScript-->
 	  <script src="./vendor/jquery/jquery.js"></script>

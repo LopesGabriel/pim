@@ -15,10 +15,10 @@ public class Desconectar extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		req.getSession().removeAttribute("Usuario");
-		res.sendRedirect("/virtualcondo");
+		request.getSession().removeAttribute("Usuario");
+		response.sendRedirect("/virtualcondo");
 
 	}
 

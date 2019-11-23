@@ -67,7 +67,7 @@
           <div class="card-body">
               
             <c:if test="${Usuario.veiculo.marca == null}">
-            	<a style="color: #fff;" class="btn btn-info ml-2 mb-4" href="cadastrar-veiculo">Registrar Veículo</a>
+            	<a style="color: #fff;" class="btn btn-info ml-2 mb-4" href="veiculo?acao=cadastrar">Registrar Veículo</a>
             </c:if>
               
             <div class="table-responsive">

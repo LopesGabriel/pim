@@ -21,9 +21,9 @@
       </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
         <h6 class="dropdown-header">Mensagens</h6>
-        <a class="dropdown-item" href="mensagem-lista.html">Suas mensagens</a>
+        <a class="dropdown-item" href="mensagem">Minhas mensagens</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="enviar-mensagem.html">Enviar mensagem</a>
+        <a class="dropdown-item" href="mensagem?acao=enviar">Enviar mensagem</a>
       </div>
     </li>
     <li class="nav-item dropdown no-arrow">

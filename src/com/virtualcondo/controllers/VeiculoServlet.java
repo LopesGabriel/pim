@@ -31,18 +31,27 @@ public class VeiculoServlet extends HttpServlet {
 		String acao = request.getParameter("acao");
 		String idVeiculo = request.getParameter("idVeiculo");
 
-		if(acao != null && acao.equals("edit")) {
-			Integer idV = Integer.parseInt(idVeiculo);
+		if(acao != null && user.getTipoUsu().getNivelAcesso().equals("Morador")) {
+			if(acao.equals("edit")) {
+				Integer idV = Integer.parseInt(idVeiculo);
+				request.setAttribute("veiculo", new VeiculoDAO().buscarVeiculo(idV));
+				request.setAttribute("vagas", new VagasDAO().listarVagas());
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/editar-veiculo.jsp");
+				dispatcher.forward(request, response);
+				return;
+			}else if(acao.equals("listar")) {
+				request.setAttribute("veiculosMorador", new VeiculoDAO().listarVeiculoMorador(user.getId()));
+				RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/morador/veiculo-lista.jsp");
+				view.forward(request, response);
+				return;
+			}else if(acao.equals("cadastrar")) {
+				RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/morador/cadastrar-veiculo.jsp");
+				request.setAttribute("vagas", new VagasDAO().listarVagas());
+				view.forward(request, response);
+				return;
+			}
+		} else if(acao != null && user.getTipoUsu().getNivelAcesso().equals("Síndico")) {
 			
-			request.setAttribute("veiculo", new VeiculoDAO().buscarVeiculo(idV));
-			request.setAttribute("vagas", new VagasDAO().listarVagas());
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/editar-veiculo.jsp");
-			dispatcher.forward(request, response);
-			return;
-		}else if(acao != null && acao.equals("listar")) {
-			request.setAttribute("veiculosMorador", new VeiculoDAO().listarVeiculoMorador(user.getId()));
-			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/morador/veiculo-lista.jsp");
-			view.forward(request, response);
 		}
 		
 		
@@ -50,16 +59,25 @@ public class VeiculoServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String idVeiculo = request.getParameter("idVeiculo");
-		String marca = request.getParameter("marca");
-		String placa = request.getParameter("placa");
-		String vaga = request.getParameter("vaga");
+		Usuario user = (Usuario) request.getSession().getAttribute("Usuario");
+		String id = request.getParameter("idVeiculo");
+		Integer idVeiculo = Integer.parseInt(id);
+		Vagas vagaV = new VagasDAO().buscarVaga(request.getParameter("vaga"));
+		Veiculo veiculo = null;
 
-		Vagas vagaV = new VagasDAO().buscarVaga(vaga);
-		Veiculo veiculo = new Veiculo(Integer.parseInt(idVeiculo), marca, placa, vagaV);
+		if (id == null) {
+			new VagasDAO().setarVagaEmUso(vagaV);
+			vagaV.setEm_uso(true);
+			veiculo = new Veiculo(null, request.getParameter("marca"), request.getParameter("placa"), vagaV);
+			if(veiculo != null) {
+				new VeiculoDAO().salvarVeiculo(veiculo, user);
+				user.setVeiculo(veiculo);
+			}
+		}else {
+			veiculo = new Veiculo(idVeiculo, request.getParameter("marca"), request.getParameter("placa"), vagaV);
+			new VeiculoDAO().editarVeiculo(veiculo);
+		}
 
-		new VeiculoDAO().editarVeiculo(veiculo);
-		
 		response.sendRedirect("/virtualcondo/veiculo?acao=listar");
 	}
 	

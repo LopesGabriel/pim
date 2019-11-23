@@ -14,7 +14,7 @@
 			<div class="modal-body">Selecione a opção "Sair" para confirmar o termino da sessão.</div>
 			<div class="modal-footer">
 				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-				<a class="btn btn-primary" href="/virtualcondo/desconectar">Sair</a>
+				<a class="btn btn-primary" href="desconectar">Sair</a>
 			</div>
 		</div>
 	</div>

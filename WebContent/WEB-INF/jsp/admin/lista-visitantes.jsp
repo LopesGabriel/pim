@@ -46,7 +46,11 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
+<<<<<<< HEAD
             <a href="/virtualcondo/index">Painel de Controle</a>
+=======
+            <a href="index">Síndico</a>
+>>>>>>> b23077206553696708b4ee1c012db9fa83e8b375
           </li>
           <li class="breadcrumb-item active">visitantes</li>
         </ol>

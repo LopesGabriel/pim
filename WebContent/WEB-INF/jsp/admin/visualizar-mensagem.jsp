@@ -9,18 +9,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	  <link rel="icon" href="../resources/imgs/Logo2.png" type="image/icon">
+	  <link rel="icon" href="./resources/imgs/Logo2.png" type="image/icon">
 	
 	<title>Virtual Condo</title>
 	
 	<!-- Custom fonts for this template-->
-	<link href="../vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="./vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
 	
 	<!-- Page level plugin CSS-->
-	<link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+	<link href="./vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 	
 	<!-- Custom styles for this template-->
-	<link href="../resources/css/sb-admin.css" rel="stylesheet">
+	<link href="./resources/css/sb-admin.css" rel="stylesheet">
 </head>
 <body id="page-top">
 
@@ -39,29 +39,26 @@
             <div class="col">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
-                    <a href="index.html">Painel de Controle</a>
-                  </li>
+		            <a href="index">Síndico</a>
+		          </li>
                   <li class="breadcrumb-item active">Mensagem</li>
                 </ol>
 
                 <!-- Page Content -->
                 <form>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="inputRemetente" readonly value="De: Matheus Lopes">
+                        <input type="text" class="form-control" id="inputRemetente" readonly value="De: ${mensagem.remetente.nome }">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="inputRemetente" readonly value="Bom Dia">
+                        <input type="text" class="form-control" id="inputRemetente" readonly value="${mensagem.assunto}">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="inputRemetente" readonly value="Tenha um bom dia">
-                    </div>
-                    <div class="input-group mb-3">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly>Bom dia vizinho, estou mandando essa mensagem para você ver como que funciona o sistema de mensagens.</textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly>${mensagem.mensagem}</textarea>
                     </div>
                     <div class="form-lavel-group mb-3 col-12 row">
-                        <input type="button" id="inputSubmit" class="btn btn-primary form-control col-4" value="Voltar">
+                        <a href="mensagem" class="btn btn-primary form-control col-4">Voltar</a>
                         <span class="col-4"></span>
-                        <input type="button" id="inputCancelar" class="btn btn-danger form-control col-4" value="Deletar">
+                        <span id="deletar-mensagem" data-id="${mensagem.id}" class="btn btn-danger form-control col-4">Deletar</span>
                     </div>
               </form>
             </div><!-- Col dos campos de texto -->
@@ -91,14 +88,80 @@
   <c:import url="../auxiliar/logout.jsp"></c:import>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="../resources/js/sb-admin.min.js"></script>
+  <script src="./resources/js/sb-admin.min.js"></script>
+  
+  <!-- BootBox JS -->
+  <script src="./vendor/bootbox/bootbox.min.js"></script>
+  <script src="./vendor/bootbox/bootbox.locales.min.js"></script>
+  <script>
+  $(document).on('click', '#deletar-mensagem', function(){
+
+		var id = $(this).data('id');
+
+		bootbox.confirm({
+			title: 'Deletar mensagem',
+			message: 'Deseja deletar a mensagem?',
+			buttons:{
+				confirm:{
+					label: 'Sim',
+					className: 'btn-success'
+				},
+				cancel:{
+					label: 'Não',
+					className: 'btn-danger'
+				}
+			},
+			callback: function(confirmacao){
+				if(confirmacao){
+					$.ajax({
+						url: '/virtualcondo/mensagem?id=' + id,
+						method: 'delete',
+						dataType: 'json',
+						success: function(rs){
+							var ttl;
+							var msg = "";
+							var ex = rs.ex;
+
+							switch(rs.status){
+							case true:
+								ttl = '<span class="text-success"><i class="far fa-check-circle"></i> Sucesso</span>';
+								msg = rs.msg;
+								window.location.assign('/virtualcondo/mensagem');
+								break;
+							case false:
+								ttl = '<span class="text-danger"><i class="fas fa-exclamation"></i> Oops</span>';
+								msg = rs.msg;
+								if(ex) msg += '<br>' + ex;
+								break;
+							}
+
+							bootbox.dialog({
+								title: ttl,
+								message: msg,
+								buttons:{
+									fechar:{
+										label: 'Fechar',
+										className: 'btn-danger',
+										callback: function(){}
+									}
+								}
+							});
+
+						}
+					});
+				}
+			}
+		});
+
+	});
+  </script>
 
 </body>
 </html>

@@ -38,9 +38,12 @@
 
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
+<<<<<<< HEAD
           <li class="breadcrumb-item">
             <a href="/virtualcondo/index">Painel</a>
           </li>
+=======
+>>>>>>> b23077206553696708b4ee1c012db9fa83e8b375
           <li class="breadcrumb-item active">Visão geral</li>
         </ol>
 
