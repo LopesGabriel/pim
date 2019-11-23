@@ -129,7 +129,20 @@ public class Visitantes extends HttpServlet {
 	}
 
 	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		try {			
+			Integer id = Integer.parseInt(req.getParameter("uid"));
+			boolean op = new VisitanteDAO().deletarVisitante(id);
+			res.setCharacterEncoding("utf-8");
+			res.setContentType("json");
+			
+			if(op) res.getWriter().write(GerarJson.sucesso("Visitante deletado(a) com sucesso!"));
+			else res.getWriter().write(GerarJson.erro("Erro ao deletar o(a) visitante, tente novamente mais tarde!", null));
+		}catch(Exception e) {
+			e.printStackTrace();
+			res.getWriter().write(GerarJson.erro("Erro ao deletar o(a) visitante, tente novamente mais tarde!", e.getMessage()));
+		}
+
 	}
 
 }

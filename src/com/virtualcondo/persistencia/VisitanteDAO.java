@@ -163,4 +163,34 @@ public class VisitanteDAO {
 
 	}
 
+	public boolean deletarVisitante(Integer id) {
+
+		boolean op = false;
+		String sql = "Delete From virtual_condo.visitante Where id_visitante = ?";
+
+		try {
+
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setInt(1, id);
+			st.execute();
+			op = true;
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			}catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally {
+			try {
+				connection.commit();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return op;
+
+	}
+
 }

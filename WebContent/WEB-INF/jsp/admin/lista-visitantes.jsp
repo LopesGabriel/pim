@@ -92,7 +92,8 @@
 		                    <td>${visitante.rg}</td>
 		                    <td>
 		                    	<div class="mx-auto col-sm-12 col-lg-8">
-			                        <i id="deletar-visitante" class="fas fa-trash Clicar" data-toggle="tooltip" data-placement="top" title="Deletar"></i>
+			                        <i id="deletar-visitante" class="fas fa-trash Clicar" data-id="${visitante.id}" data-nome="${visitante.nome}"
+			                        	 data-toggle="tooltip" data-placement="top" title="Deletar"></i>
 			                        <a href="/virtualcondo/visitantes?acao=editar&id=${visitante.id}" style="padding-left: 33%;">
 			                        	<i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
 			                        </a>
@@ -137,6 +138,7 @@
 
   <!-- Bootstrap core JavaScript-->
   <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/bootbox/bootbox.all.min.js"></script>
   <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -150,6 +152,98 @@
 		var data = new Date();
 		$("#ultima-att").html(data.toString());
 		$('[data-toggle="tooltip"]').tooltip();
+	});
+
+	$(document).on('click', '#deletar-visitante', function(){
+
+		var id = $(this).data('id');
+		var nome = $(this).data('nome');
+
+		bootbox.confirm({
+			size: 'small',
+			title: 'Confirme a ação',
+			message: 'Deseja deletar o(a) visitante ' + nome + ' ?',
+			buttons:{
+				confirm:{
+					label: 'Sim',
+					className: 'btn-success'
+				},
+				cancel:{
+					label: 'Não',
+					className: 'btn-danger'
+				}
+			},
+			callback: function(acao){
+				if(acao){
+
+					var dados = new FormData();
+					dados.append('uid', id);
+
+					$.ajax({
+						url: '/virtualcondo/visitantes',
+						type: 'DELETE',
+						data: dados,
+						processData: false,
+						cache: false,
+						contentType: false,
+						dataType: 'json',
+						success: function(rs){
+							switch(rs.status){
+							case true:
+			            		bootbox.dialog({
+			            			size: 'small',
+			            			title: 'Sucesso!',
+			            			message: rs.msg,
+			            			buttons:{
+			            				fechar:{
+			            					label: 'Fechar',
+			            					className: 'btn-danger',
+			            					callback: function(){}
+			            				}
+			            			}
+			            		});
+			            		$('tr[data-nome="'+nome+'"]').remove();
+								break;
+							case false:
+			            		bootbox.dialog({
+			            			size: 'small',
+			            			title: 'Erro!',
+			            			message: rs.msg + '<br>' + rs.ex,
+			            			buttons:{
+			            				fechar:{
+			            					label: 'Fechar',
+			            					className: 'btn-danger',
+			            					callback: function(){}
+			            				}
+			            			}
+			            		});
+								break;
+							}
+						},
+						error: function(xhr, error, errorThrow){
+		            		bootbox.dialog({
+		            			size: 'small',
+		            			title: 'Erro ' + errorThrow + ' !',
+		            			message: 'Confira o log do navegador para mais detalhes',
+		            			buttons:{
+		            				fechar:{
+		            					label: 'Fechar',
+		            					className: 'btn-danger',
+		            					callback: function(){}
+		            				}
+		            			}
+		            		});
+		            		console.log("Request Body: ");
+		            		console.log(xhr);
+		            		console.log('Error: ');
+		            		console.log(error);
+						}
+					});
+
+				}
+			}
+		});
+
 	});
 </script>
 
