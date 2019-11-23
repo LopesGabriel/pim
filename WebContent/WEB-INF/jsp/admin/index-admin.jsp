@@ -39,7 +39,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#">Painel</a>
+            <a href="/virtualcondo/index">Painel</a>
           </li>
           <li class="breadcrumb-item active">Visão geral</li>
         </ol>
@@ -116,7 +116,9 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Registro de entrada</div>
+     		Registro de entrada
+     		<div class="float-right"><a href="/virtualcondo/visita"><i class="fas fa-table" title="Cadastrar nova visita"></i></a></div>
+     	  </div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

@@ -216,4 +216,32 @@ public class VisitaDAO {
 
 	}
 
+	public List<Visitante> recuperarVisitantes(){
+		List<Visitante> lista = new ArrayList<Visitante>();
+		String sql = "Select\r\n" + 
+			"	id_visitante, nome\r\n" + 
+			"From virtual_condo.visitante";
+
+		try {
+			PreparedStatement st = connection.prepareStatement(sql);
+			ResultSet rs = st.executeQuery();
+
+			while(rs.next()) {
+				Visitante v = new Visitante(rs.getInt("id_visitante"));
+				v.setNome(rs.getString("nome"));
+				lista.add(v);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return lista;
+	}
+
 }
