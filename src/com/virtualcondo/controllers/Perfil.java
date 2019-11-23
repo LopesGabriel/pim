@@ -27,43 +27,58 @@ public class Perfil extends HttpServlet {
 		String editar = request.getParameter("editar");
 		
 		if(editar != null) {
-			
-			if(editar.equals("true") && user.getTipoUsu().getNivelAcesso().equals("Morador")) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/editar-perfil.jsp");
-				dispatcher.forward(request, response);
+			if(user.getTipoUsu().getNivelAcesso().equals("Morador")) {
+				if(editar.equals("true") && user.getTipoUsu().getNivelAcesso().equals("Morador")) {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/editar-perfil.jsp");
+					dispatcher.forward(request, response);
+					return;
+				}
+			} else if(user.getTipoUsu().getNivelAcesso().equals("Síndico")) {
+				if(editar.equals("true") && user.getTipoUsu().getNivelAcesso().equals("Síndico")) {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/admin/editar-perfil.jsp");
+					dispatcher.forward(request, response);
+					return;
+				}
 			}
-			
-		} else if(user.getTipoUsu().getNivelAcesso().equals("Morador")) {
+		}
+		
+		if(user.getTipoUsu().getNivelAcesso().equals("Morador")) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/perfil-morador.jsp");
 			dispatcher.forward(request, response);
+			return;
+		}else if(user.getTipoUsu().getNivelAcesso().equals("Síndico")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/admin/perfil-admin.jsp");
+			dispatcher.forward(request, response);
+			return;
 		}
 		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+		request.setCharacterEncoding("utf-8");
 		Usuario user = (Usuario) request.getSession().getAttribute("Usuario");
 		Integer id = user.getId();
-		
+
 		String nome = request.getParameter("nome");
 		String cpf = request.getParameter("cpf");
 		String rg = request.getParameter("rg");
 		String email = request.getParameter("email");
-		
+
 		user.setNome(nome);
 		user.setCpf(cpf);
 		user.setRg(rg);
 		user.setEmail(email);
-		
+
 		new UsuarioDAO().AlterarUsuario(user);
-		
+
 		HttpSession session = request.getSession();
 		session.removeAttribute("Usuario");
 		session.setAttribute("Usuario", new UsuarioDAO().buscarPorId(id));
 
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/jsp/morador/perfil-morador.jsp");
 		view.forward(request, response);
-		
+
 	}
 
 }

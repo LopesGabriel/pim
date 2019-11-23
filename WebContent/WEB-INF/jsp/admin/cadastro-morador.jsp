@@ -41,7 +41,7 @@
             <div class="col-sm-12">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
-                    <a href="index.html">Painel de Controle</a>
+                    <a href="index">Síndico</a>
                   </li>
                   <li class="breadcrumb-item active">Cadastro de morador</li>
                 </ol>

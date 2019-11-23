@@ -30,18 +30,32 @@ public class MensagemServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		if(acao != null) {
-			
-			if(acao.equals("visualizar")) {
-				new MensagemDAO().setVisualizada(Integer.parseInt(id));
-				request.setAttribute("mensagem", new MensagemDAO().buscarPorId(Integer.parseInt(id)));
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/mensagem-visualizar.jsp");
-				dispatcher.forward(request, response);
-				return;
-			}else if (acao.equals("enviar")) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/enviar-mensagem.jsp");
-				request.setAttribute("moradores", new UsuarioDAO().listarMoradores());
-				dispatcher.forward(request, response);
-				return;
+			if(user.getTipoUsu().getNivelAcesso().equals("Morador")) {
+				if(acao.equals("visualizar")) {
+					new MensagemDAO().setVisualizada(Integer.parseInt(id));
+					request.setAttribute("mensagem", new MensagemDAO().buscarPorId(Integer.parseInt(id)));
+					RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/mensagem-visualizar.jsp");
+					dispatcher.forward(request, response);
+					return;
+				}else if (acao.equals("enviar")) {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/enviar-mensagem.jsp");
+					request.setAttribute("moradores", new UsuarioDAO().listarMoradores());
+					dispatcher.forward(request, response);
+					return;
+				}
+			}else if(user.getTipoUsu().getNivelAcesso().equals("Síndico")) {
+				if(acao.equals("visualizar")){
+					new MensagemDAO().setVisualizada(Integer.parseInt(id));
+					request.setAttribute("mensagem", new MensagemDAO().buscarPorId(Integer.parseInt(id)));
+					RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/admin/visualizar-mensagem.jsp");
+					dispatcher.forward(request, response);
+					return;
+				}else if(acao.equals("enviar")) {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/admin/enviar-mensagem.jsp");
+					request.setAttribute("moradores", new UsuarioDAO().listarMoradores());
+					dispatcher.forward(request, response);
+					return;
+				}
 			}
 			
 		}
@@ -52,6 +66,13 @@ public class MensagemServlet extends HttpServlet {
 			request.setAttribute("mensagens", new MensagemDAO().listarMensagemDoUsuario(user));
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/mensagem-lista.jsp");
 			dispatcher.forward(request, response);
+			return;
+		}else if(user.getTipoUsu().getNivelAcesso().equals("Síndico")) {
+			request.setAttribute("qtdMensagem", new MensagemDAO().quantidadeDeMensagens(user));
+			request.setAttribute("mensagens", new MensagemDAO().listarMensagemDoUsuario(user));
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/admin/lista-mensagens.jsp");
+			dispatcher.forward(request, response);
+			return;
 		}
 	}
 

@@ -66,7 +66,7 @@
                     <div class="form-lavel-group mb-3 col-12 row">
 			            <input type="submit" id="inputSubmit" class="btn btn-primary form-control col-4" value="Confirmar">
 			            <span class="col-4"></span>
-			            <input type="button" id="inputCancelar" class="btn btn-danger form-control col-4" value="Cancelar">
+			            <a href="perfil" id="inputCancelar" class="btn btn-danger form-control col-4">Cancelar</a>
 			        </div>
               </form>
             </div><!-- Col dos campos de texto -->

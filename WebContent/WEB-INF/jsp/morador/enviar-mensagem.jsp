@@ -65,7 +65,7 @@
                         <span class="col-4"></span>
                         <a href="mensagem" class="btn btn-danger form-control col-4">Cancelar</a>
                     </div>
-              </form>
+              	</form>
             </div><!-- Col dos campos de texto -->
       </div><!-- fim do container -->
     </div>

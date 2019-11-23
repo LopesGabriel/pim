@@ -39,32 +39,36 @@
             <div class="col">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
-                    <a href="index">Morador</a>
+                    <a href="index">Síndico</a>
                   </li>
-                  <li class="breadcrumb-item active">Perfil do Morador</li>
+                  <li class="breadcrumb-item active">Editar síndico</li>
                 </ol>
 
                 <!-- Page Content -->
-                <div class="form-label-group mb-3">
-                    <input type="text" id="inputNome" class="form-control" placeholder="Nome" value="${Usuario.nome}" readonly="readonly">
-                    <label for="inputNome">Nome</label>
-                </div> 
-                <div class="form-label-group mb-3">
-                    <input type="text" id="inputCpf" class="form-control" placeholder="CPF" value="${Usuario.cpf}" readonly="readonly">
-                    <label for="inputCpf">CPF</label>
-                </div>
-                <div class="form-label-group mb-3">
-                    <input type="text" id="inputRg" class="form-control" placeholder="RG" value="${Usuario.rg}" readonly="readonly">
-                    <label for="inputRg">RG</label>
-                </div>
-                <div class="form-label-group mb-3">
-                    <input type="text" id="inputEmail" class="form-control" placeholder="E-mail" value="${Usuario.email}" readonly="readonly">
-                    <label for="inputEmail">E-mail</label>
-                </div>
+                <form action="/virtualcondo/perfil" method="post">
+                    <div class="form-label-group mb-3">
+                        <input type="text" id="inputNome" class="form-control" placeholder="Nome" value="${Usuario.nome}" name="nome">
+                        <label for="inputNome">Nome</label>
+                    </div>
+                    <div class="form-label-group mb-3">
+                        <input type="text" id="inputCpf" class="form-control" placeholder="CPF" value="${Usuario.cpf}" name="cpf">
+                        <label for="inputCpf">CPF</label>
+                    </div>
+                    <div class="form-label-group mb-3">
+                        <input type="text" id="inputRg" class="form-control" placeholder="RG" value="${Usuario.rg}" name="rg">
+                        <label for="inputRg">RG</label>
+                    </div>
+                    <div class="form-label-group mb-3">
+                        <input type="text" id="inputEmail" class="form-control" placeholder="E-mail" value="${Usuario.email}" name="email">
+                        <label for="inputEmail">E-mail</label>
+                    </div>
+                    <div class="form-lavel-group mb-3 col-12 row">
+			            <input type="submit" id="inputSubmit" class="btn btn-primary form-control col-4" value="Confirmar">
+			            <span class="col-4"></span>
+			            <a href="perfil" id="inputCancelar" class="btn btn-danger form-control col-4">Cancelar</a>
+			        </div>
+              </form>
             </div><!-- Col dos campos de texto -->
-          <div class="form-lavel-group mb-3 col-12 row">
-            <a href="perfil?editar=true" type="button" class="btn btn-primary form-control">Editar Perfil</a>
-          </div>
       </div><!-- fim do container -->
     </div>
       <!-- /.container-fluid -->

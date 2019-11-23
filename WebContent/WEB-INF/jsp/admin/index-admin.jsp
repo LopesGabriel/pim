@@ -38,9 +38,6 @@
 
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="#">Painel</a>
-          </li>
           <li class="breadcrumb-item active">Visão geral</li>
         </ol>
 
