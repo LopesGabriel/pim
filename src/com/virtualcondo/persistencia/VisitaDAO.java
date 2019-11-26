@@ -244,4 +244,6 @@ public class VisitaDAO {
 		return lista;
 	}
 
+	public 
+
 }

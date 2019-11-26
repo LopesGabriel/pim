@@ -95,7 +95,23 @@ public class Visita extends HttpServlet {
 	}
 
 	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		Usuario u = (Usuario) req.getSession().getAttribute("Usuario");
+		res.setCharacterEncoding("utf-8");
+		res.setContentType("json");
+
+		if(u != null) {
+
+			try {
+
+				Integer id = Integer.parseInt(req.getParameter("uid"));
+
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
 	}
 
 	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

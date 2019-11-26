@@ -165,7 +165,7 @@
               </table>
             </div>
           </div>
-          <div class="card-footer small text-muted">Ultima atualização dia 30/04</div>
+          <div class="card-footer small text-muted">Última atualização dia 30/04</div>
         </div>
 
       </div>
@@ -220,7 +220,72 @@
 	});
 
 	$(document).on('click', '#registrar-saida', function(){
-		
+		var id = $(this).data('id');
+		bootbox.confirm({
+			size: 'small',
+			title: 'Confirmar a ação',
+			message: 'Deseja confirmar a saída?',
+			buttons:{
+				confirm:{
+					label: 'Sim',
+					className: 'btn-success'
+				},
+				cancel:{
+					label: 'Não',
+					className: 'btn-danger'
+				}
+			},
+			callback: function(result){
+				if(result){
+
+					var dados = new FormData();
+					dados.append('uid', id);
+
+					$.ajax({
+						url: '/virtualcondo/visita',
+						method: 'PUT',
+						data: dados,
+						processData: false,
+						cache: false,
+						contentType: false,
+						dataType: 'json',
+						success: function(rs){
+							switch(rs.status){
+							case true:
+								bootbox.dialog({
+			            			size: 'small',
+			            			title: 'Sucesso!',
+			            			message: rs.msg,
+			            			buttons:{
+			            				fechar:{
+			            					label: 'Fechar',
+			            					className: 'btn-danger',
+			            					callback: function(){}
+			            				}
+			            			}
+			            		});
+								break;
+							case false:
+								bootbox.dialog({
+			            			size: 'small',
+			            			title: 'Erro!',
+			            			message: rs.msg + '<br>' + rs.ex,
+			            			buttons:{
+			            				fechar:{
+			            					label: 'Fechar',
+			            					className: 'btn-danger',
+			            					callback: function(){}
+			            				}
+			            			}
+			            		});
+								break;
+							}
+						}
+					});
+
+				}
+			}
+		});
 	});
 </script>
 
