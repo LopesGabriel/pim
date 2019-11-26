@@ -9,18 +9,30 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	  <link rel="icon" href="../resources/imgs/Logo2.png" type="image/icon">
+	  <link rel="icon" href="./resources/imgs/Logo2.png" type="image/icon">
 	
 	<title>Virtual Condo</title>
 	
 	<!-- Custom fonts for this template-->
-	<link href="../vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="./vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
 	
 	<!-- Page level plugin CSS-->
-	<link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+	<link href="./vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 	
 	<!-- Custom styles for this template-->
-	<link href="../resources/css/sb-admin.css" rel="stylesheet">
+	<link href="./resources/css/sb-admin.css" rel="stylesheet">
+	
+	<style>
+		.Clicar {
+			cursor: pointer;
+		}
+		
+		.Clicar:hover{
+			color: #b71c1c;
+			transition: 500ms;
+		}
+	</style>
+	
 </head>
 <body id="page-top">
 
@@ -54,10 +66,12 @@
             Veículos registrados</div>
           <div class="card-body">
               
-              <button type="button" style="margin-left: 2em; margin-bottom: 1em;" class="btn btn-info"><a style="color: #fff;" href="cadastro-veiculo.html">Cadastrar Veículo</a></button>
-              
+            <c:if test="${Usuario.veiculo.marca == null}">
+            	<a style="color: #fff;" class="btn btn-info ml-2 mb-4" href="veiculo?acao=cadastrar">Registrar Veículo</a>
+            </c:if>
+            
             <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered" id="dataTable">
                 <thead>
                   <tr>
                     <th>Modelo</th>
@@ -77,46 +91,67 @@
                   </tr>
                 </tfoot>
                 <tbody>
+                 	<c:choose>
+	               		<c:when test="${ veiculosSindico.placa != null}">
+	               			<tr>
+			                    <td>${veiculosSindico.marca}</td>
+			                    <td>${veiculosSindico.vaga.vaga}</td>
+			                    <td>${veiculosSindico.placa}</td>
+			                    <td>${Usuario.nome}</td>
+			                    <td>
+			                        <span id="deletarVeiculo" data-id="${veiculosSindico.id}" class="fas fa-trash Clicar"> Deletar</span> |
+			                        <a href="/virtualcondo/veiculo?acao=edit&idVeiculo=${veiculosSindico.id}"><i class="fas fa-edit"> Editar</i></a>
+			                    </td>
+			                </tr>
+	               		</c:when>
+	                  	<c:otherwise>
+	                  		<tr>
+			                    <td colspan="4">Você não possui um veículo registrado</td>
+			                    <td>
+			                        <a href="veiculo?acao=cadastrar">Cadastrar Veículo</a>
+			                    </td>
+			                </tr>
+	                  	</c:otherwise>
+	                </c:choose>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Ultima atualização dia 30/04</div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            Veiculos dos Moradores
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable">
+                <thead>
                   <tr>
-                    <td>Ferrari</td>
-                    <td>1001</td>
-                    <td>GOD-9598</td>
-                    <td>Matheus de Oliveira Lopes</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-veiculo.html"><i class="fas fa-edit"> Editar</i></a>
-                    </td>
+                    <th>Modelo</th>
+                    <th>Vaga</th>
+                    <th>Placa</th>
+                    <th>Proprietário</th>
                   </tr>
-                    <tr>
-                    <td>Fusca</td>
-                    <td>1002</td>
-                    <td>FEI-1025</td>
-                    <td>Gabriel de Oliveira Lopes</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-veiculo.html"><i class="fas fa-edit"> Editar</i></a>
-                    </td>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Modelo</th>
+                    <th>Vaga</th>
+                    <th>Placa</th>
+                    <th>Proprietário</th>
                   </tr>
-                    <tr>
-                    <td>Brasília</td>
-                    <td>1003</td>
-                    <td>BRO-5842</td>
-                    <td>Silvio Suguino</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-veiculo.html"><i class="fas fa-edit"> Editar</i></a>
-                    </td>
-                  </tr>
-                    <tr>
-                    <td>bugatti</td>
-                    <td>1004</td>
-                    <td>EXM-9598</td>
-                    <td>Matheus de Oliveira Lopes</td>
-                    <td>
-                        <a href="#"><i class="fas fa-trash"> Deletar</i></a> |
-                        <a href="editar-veiculo.html"><i class="fas fa-edit"> Editar</i></a>
-                    </td>
-                  </tr>
+                </tfoot>
+                <tbody>
+                 	<c:forEach items="${veiculosGeral}" var="pessoa">
+               		  <tr>
+	                    <td>${pessoa.veiculo.marca}</td>
+	                    <td>${pessoa.veiculo.vaga.vaga}</td>
+	                    <td>${pessoa.veiculo.placa}</td>
+	                    <td>${pessoa.nome}</td>
+	                  </tr>
+                 	</c:forEach>
                 </tbody>
               </table>
             </div>
@@ -150,14 +185,68 @@
   <c:import url="../auxiliar/logout.jsp"></c:import>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="../resources/js/sb-admin.min.js"></script>
+  <script src="./resources/js/sb-admin.min.js"></script>
+  
+  <!-- BootBox JS -->
+  <script src="./vendor/bootbox/bootbox.min.js"></script>
+  <script src="./vendor/bootbox/bootbox.locales.min.js"></script>
+  <script>
+  	$(document).on("click", "#deletarVeiculo", function(e) {
+  		var confirmModal = bootbox.confirm({ 
+  		    size: "small",
+  		    title: "Deletar Veiculo",
+  		    message: "Tem certeza que deseja deletar esse veículo?",
+  		    buttons:{
+  		    	confirm:{
+  		    		label: 'Sim',
+  		    		className: 'btn-success'
+  		    	},
+  		    	cancel:{
+  		    		label: 'Não',
+  		    		className: 'btn-danger'
+  		    	}
+  		    },
+  		    callback: function(result){
+  		    	if(result){
+  		    		var id = $("#deletarVeiculo").data('id');
+  		    		$.ajax({
+  		    			url: '/virtualcondo/veiculo?id='+id,
+  		    			method: 'Delete',
+  		    			success: function(rs){
+  		    				window.location.assign('/virtualcondo/veiculo?acao=listar');
+  		    				confirmModal = bootbox.dialog({
+  		    					size: 'small',
+  		    					title: '<span class="text-success">Sucesso <i class="far fa-check-circle text-rigth"></i><span>',
+  		    					message: 'Veículo deletado com sucesso'
+  		    				})
+  		    			},
+  		    			error: function(e, xml, err){
+  		    				bootbox.dialog({
+  		    					size: 'small',
+  		    					title: 'Falha',
+  		    					message: 'Falha ao se comunicar com o servidor',
+  		    					buttons:{
+  		    						fechar:{
+  		    							label: 'Fechar',
+  		    							className: 'btn-danger',
+  		    							callback: function() {}
+  		    						}
+  		    					}
+  		    				});
+  		    			}
+  		    		});//Fim do Ajax
+  		    	} // Fim do if
+  		    }// Fim do Callback
+  		})
+    });
+  </script>
 
 </body>
 </html>

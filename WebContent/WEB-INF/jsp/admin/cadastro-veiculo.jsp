@@ -9,18 +9,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	  <link rel="icon" href="../resources/imgs/Logo2.png" type="image/icon">
+	  <link rel="icon" href="./resources/imgs/Logo2.png" type="image/icon">
 	
 	<title>Virtual Condo</title>
 	
 	<!-- Custom fonts for this template-->
-	<link href="../vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="./vendor/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
 	
 	<!-- Page level plugin CSS-->
-	<link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+	<link href="./vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 	
 	<!-- Custom styles for this template-->
-	<link href="../resources/css/sb-admin.css" rel="stylesheet">
+	<link href="./resources/css/sb-admin.css" rel="stylesheet">
 </head>
 <body id="page-top">
 
@@ -45,30 +45,25 @@
                 </ol>
 
                 <!-- Page Content -->
-                <form>
+                <form action="/virtualcondo/veiculo" method="post">
                     <div class="form-label-group mb-3">
-                        <input type="text" id="inputNome" class="form-control" placeholder="Nome" required autofocus>
+                        <input type="text" id="inputNome" name="marca" class="form-control" placeholder="Nome" required autofocus>
                         <label for="inputNome">Marca</label>
                     </div> 
                     <div class="form-label-group mb-3">
-                        <input type="text" id="inputCpf" class="form-control" placeholder="CPF">
+                        <input type="text" id="inputCpf" name="placa" class="form-control" placeholder="CPF">
                         <label for="inputCpf">Placa</label>
                     </div>
-                    <div class="form-label-group mb-3">
-                        <input type="text" id="inputRg" class="form-control" placeholder="RG">
-                        <label for="inputRg">Proprietário</label>
-                    </div>
                     <div class="input-group mb-3">
-                        <select class="custom-select" id="inputBloco">
-                            <option selected>Vaga Estacionamento</option>
-                            <option>1001</option>
-                            <option>1002</option>
-                            <option>1003</option>
-                            <option>1004</option>
+                        <select class="custom-select" name="vaga" id="inputBloco">
+                            <option selected disabled>Vaga Estacionamento</option>
+                            <c:forEach items="${vagas}" var="vaga">
+                            	<option>${vaga.vaga}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div class="form-lavel-group mb-3 col-12 row">
-                        <input type="button" id="inputSubmit" class="btn btn-primary form-control col-4" value="Confirmar">
+                        <input type="submit" id="inputSubmit" class="btn btn-primary form-control col-4" value="Confirmar">
                         <span class="col-4"></span>
                         <input type="button" id="inputCancelar" class="btn btn-danger form-control col-4" value="Cancelar">
                     </div>
@@ -100,14 +95,14 @@
   <c:import url="../auxiliar/logout.jsp"></c:import>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="../resources/js/sb-admin.min.js"></script>
+  <script src="./resources/js/sb-admin.min.js"></script>
 
 </body>
 </html>

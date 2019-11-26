@@ -17,19 +17,13 @@
     </a>
   </li>
     <li class="nav-item">
-    <a class="nav-link" href="colaboradores">
-      <i class="fas fa-briefcase"></i>
-      <span>Colaborador</span>
-    </a>
-  </li>
-    <li class="nav-item">
     <a class="nav-link" href="visitantes">
       <i class="fas fa-user-friends"></i>
       <span>Visitantes</span>
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="veiculos">
+    <a class="nav-link" href="veiculo?acao=listar">
       <i class="fas fa-fw fa-car"></i>
       <span>Veículos</span></a>
   </li>

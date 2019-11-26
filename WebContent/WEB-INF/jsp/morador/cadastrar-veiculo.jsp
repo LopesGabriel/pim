@@ -44,7 +44,7 @@
 	                </ol>
 	
 	                <!-- Page Content -->
-	                <form action="/virtualcondo/cadastrar-veiculo" method="post">
+	                <form action="/virtualcondo/veiculo" method="post">
 	                    <div class="form-label-group mb-3">
 	                        <input type="text" id="marca" name="marca" class="form-control" placeholder="Marca" required autofocus>
 	                        <label for="marca">Marca</label>

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.virtualcondo.connection.ConnectionFactory;
 import com.virtualcondo.models.Usuario;
@@ -165,7 +167,7 @@ public class VeiculoDAO {
 		}
 	}
 	
-	public Veiculo listarVeiculoMorador(Integer id){
+	public Veiculo listarVeiculoPorId(Integer id){
 		
 		Veiculo veiculo = null;
 		String sql = "SELECT " + 
@@ -193,7 +195,6 @@ public class VeiculoDAO {
 				veiculo.setMarca(rs.getString("marca"));
 				veiculo.setPlaca(rs.getString("placa"));
 				veiculo.setVaga(vaga);
-				
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -204,9 +205,47 @@ public class VeiculoDAO {
 				e.printStackTrace();
 			}
 		}
-
 		return veiculo;
+	}
+	
+	public List<Usuario> listarVeiculosCadastrados(){
+		List<Usuario> lista = new ArrayList<Usuario>();
+		String sql = "SELECT u.nome, v.id_veiculo, v.marca, v.placa, v.vaga AS vaga_id, va.vaga\r\n" + 
+				"FROM virtual_condo.usuario AS u\r\n" + 
+				"LEFT JOIN virtual_condo.veiculo AS v ON u.veiculo_id_veiculo = v.id_veiculo\r\n" + 
+				"LEFT JOIN virtual_condo.vagas AS va ON v.vaga = va.id_vaga\r\n" + 
+				"WHERE u.veiculo_id_veiculo is not null";
+		try {
+			PreparedStatement st = connection.prepareStatement(sql);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				Usuario user = new Usuario();
+				Veiculo veiculo = new Veiculo();
+				Vagas vaga = new Vagas();
 
+				vaga.setId(rs.getInt("vaga_id"));
+				vaga.setVaga(rs.getString("vaga"));
+
+				veiculo.setId(rs.getInt("id_veiculo"));
+				veiculo.setMarca(rs.getString("marca"));
+				veiculo.setPlaca(rs.getString("placa"));
+				veiculo.setVaga(vaga);
+
+				user.setNome(rs.getString("nome"));
+				user.setVeiculo(veiculo);
+				
+				lista.add(user);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(!connectionReciclada) connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return lista;
 	}
 	
 }
