@@ -24,10 +24,12 @@ public class AreaDeLazer extends HttpServlet {
 		
 		Usuario user = (Usuario) request.getSession().getAttribute("Usuario");
 		
-		if(user.getTipoUsu().getNivelAcesso().equals("Morador")) {
+		if(user != null) {
 			request.setAttribute("AreasDeLazer", new AreaDeLazerDAO().listarAreasDeLazer());
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/area-de-lazer.jsp");
 			dispatcher.forward(request, response);
+		}else {
+			response.sendRedirect("/virtualcondo/index");
 		}
 		
 	}
