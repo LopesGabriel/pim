@@ -124,6 +124,39 @@ public class VisitaDAO {
 
 		return v;
 	}
+	
+	public List<Visita> listaVisitaMorador(Usuario user){
+		List<Visita> lista = new ArrayList<Visita>();
+		String sql = "SELECT v.nome, vh.data_entrada, vh.data_saida\r\n" + 
+				"FROM virtual_condo.visitante_has_usuario AS vh\r\n" + 
+				"LEFT JOIN virtual_condo.visitante AS v ON vh.visitante_id = v.id_visitante\r\n" + 
+				"WHERE vh.usuario_id = ?";
+		try {
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setInt(1, user.getId());
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				Visitante v = new Visitante();
+				v.setNome(rs.getString("nome"));
+				
+				Visita visit = new Visita();
+				visit.setVisitante(v);
+				visit.setDtEntrada(rs.getTimestamp("data_entrada"));
+				visit.setDtSaida(rs.getTimestamp("data_saida"));
+				visit.setResponsavel(user);
+				lista.add(visit);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(!connectionReciclada) connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return lista;
+	}
 
 	public List<Visita> listarVisitas(){
 

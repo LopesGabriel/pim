@@ -48,15 +48,12 @@
 
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="/virtualcondo/index">Síndico</a>
-          </li>
-          <li class="breadcrumb-item active">Visão geral</li>
+          <li class="breadcrumb-item active">Bem vindo ${Usuario.nome}</li>
         </ol>
 
         <!-- Icon Cards-->
         <div class="row">
-          <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="col-xl-4 mb-3">
             <div class="card text-white bg-primary o-hidden h-100">
               <div class="card-body">
                 <div class="card-body-icon">
@@ -72,23 +69,7 @@
               </a>
             </div>
           </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-warning o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fas fa-briefcase"></i>
-                </div>
-                <div class="mr-5"><c:out value="${adminPage.colaboradoresCadastrados}"></c:out> colaboradores cadastrados!</div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="colaborador-lista.html">
-                <span class="float-left">Administrar colaboradores</span>
-                <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="col-xl-4 col-sm-6 mb-3">
             <div class="card text-white bg-success o-hidden h-100">
               <div class="card-body">
                 <div class="card-body-icon">
@@ -104,7 +85,7 @@
               </a>
             </div>
           </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="col-xl-4 col-sm-6 mb-3">
             <div class="card text-white bg-danger o-hidden h-100">
               <div class="card-body">
                 <div class="card-body-icon">
@@ -112,7 +93,7 @@
                 </div>
                 <div class="mr-5"><c:out value="${adminPage.veiculosCadastrados}"></c:out> veículos cadastrados!</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="veiculo-lista.html">
+              <a class="card-footer text-white clearfix small z-1" href="veiculo?acao=listar">
                 <span class="float-left">Administrar veículos</span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>

@@ -30,6 +30,7 @@ public class Index extends HttpServlet {
 			RequestDispatcher dispatcher = null;
 			switch(user.getTipoUsu().getId()) {
 			case 1:
+				request.setAttribute("visitas", new VisitaDAO().listaVisitaMorador(user));
 				dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/index-morador.jsp");
 				dispatcher.forward(request, response);
 				break;
