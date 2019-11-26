@@ -91,14 +91,11 @@
 		                    <td>${visitante.cpf}</td>
 		                    <td>${visitante.rg}</td>
 		                    <td>
-		                    	<div class="mx-auto col-sm-12 col-lg-8">
+		                    	<div class="mx-auto col-sm-12 col-lg-6">
 			                        <i id="deletar-visitante" class="fas fa-trash Clicar" data-id="${visitante.id}" data-nome="${visitante.nome}"
 			                        	 data-toggle="tooltip" data-placement="top" title="Deletar"></i>
-			                        <a href="/virtualcondo/visitantes?acao=editar&id=${visitante.id}" style="padding-left: 33%;">
+			                        <a href="/virtualcondo/visitantes?acao=editar&id=${visitante.id}" class="float-right" style="padding-left: 33%;">
 			                        	<i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
-			                        </a>
-			                        <a href="/virtualcondo/visitantes?acao=editar&id=${visitante.id}" class="float-right">
-			                        	<i class="fas fa-history" data-toggle="tooltip" data-placement="top" title="Histórico de visitas"></i>
 			                        </a>
 			                    </div>
 		                    </td>

@@ -21,6 +21,16 @@
 	
 	<!-- Custom styles for this template-->
 	<link href="./resources/css/sb-admin.css" rel="stylesheet">
+
+	<style>
+		.Clicar{
+			color: green;
+		}
+		.Clicar:hover {
+			color: red;
+			cursor: pointer;
+		}
+	</style>
 </head>
 <body id="page-top">
 
@@ -260,7 +270,9 @@
 			            				fechar:{
 			            					label: 'Fechar',
 			            					className: 'btn-danger',
-			            					callback: function(){}
+			            					callback: function(){
+			            						location.reload();
+			            					}
 			            				}
 			            			}
 			            		});

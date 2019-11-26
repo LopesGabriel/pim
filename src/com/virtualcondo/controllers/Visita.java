@@ -15,6 +15,7 @@ import com.virtualcondo.models.Usuario;
 import com.virtualcondo.models.Visitante;
 import com.virtualcondo.persistencia.UsuarioDAO;
 import com.virtualcondo.persistencia.VisitaDAO;
+import com.virtualcondo.utils.GerarJson;
 
 
 @WebServlet("/visita")
@@ -99,16 +100,25 @@ public class Visita extends HttpServlet {
 		Usuario u = (Usuario) req.getSession().getAttribute("Usuario");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("json");
+		boolean op = false;
 
 		if(u != null) {
 
 			try {
 
 				Integer id = Integer.parseInt(req.getParameter("uid"));
+				op = new VisitaDAO().registrarSaida(id);
 
 			}catch(Exception e) {
 				e.printStackTrace();
+				res.getWriter().write(GerarJson.erro("Não foi possível registrar a saída.", e.getMessage()));
+				return;
 			}
+
+			if(op) res.getWriter().write(GerarJson.sucesso("Saída registrada com sucesso!"));
+			else res.getWriter().write(GerarJson.erro("Não foi possível registrar a saída.", null));
+
+			return;
 
 		}
 

@@ -244,6 +244,34 @@ public class VisitaDAO {
 		return lista;
 	}
 
-	public 
+	public boolean registrarSaida(Integer id) {
+
+		String sql = "Update virtual_condo.visitante_has_usuario Set data_saida = NOW() Where id_visita = " + id;
+		boolean op = false;
+
+		try {
+
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.execute();
+			op = true;
+
+		}catch(SQLException e) {
+			op = false;
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			}catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally {
+			try {
+				connection.commit();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return op;
+
+	}
 
 }
