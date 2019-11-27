@@ -27,13 +27,13 @@ public class Perfil extends HttpServlet {
 		String editar = request.getParameter("editar");
 		
 		if(editar != null) {
-			if(user.getTipoUsu().getNivelAcesso().equals("Morador")) {
+			if(user.getTipoUsu().getId() == 1) {
 				if(editar.equals("true") && user.getTipoUsu().getNivelAcesso().equals("Morador")) {
 					RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/editar-perfil.jsp");
 					dispatcher.forward(request, response);
 					return;
 				}
-			} else if(user.getTipoUsu().getNivelAcesso().equals("Síndico")) {
+			} else if(user.getTipoUsu().getId() == 2) {
 				if(editar.equals("true") && user.getTipoUsu().getNivelAcesso().equals("Síndico")) {
 					RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/admin/editar-perfil.jsp");
 					dispatcher.forward(request, response);
@@ -42,11 +42,11 @@ public class Perfil extends HttpServlet {
 			}
 		}
 		
-		if(user.getTipoUsu().getNivelAcesso().equals("Morador")) {
+		if(user.getTipoUsu().getId() == 1) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/perfil-morador.jsp");
 			dispatcher.forward(request, response);
 			return;
-		}else if(user.getTipoUsu().getNivelAcesso().equals("Síndico")) {
+		}else if(user.getTipoUsu().getId() == 2) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/admin/perfil-admin.jsp");
 			dispatcher.forward(request, response);
 			return;

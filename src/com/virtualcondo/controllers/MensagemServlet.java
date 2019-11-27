@@ -30,7 +30,7 @@ public class MensagemServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		if(acao != null) {
-			if(user.getTipoUsu().getNivelAcesso().equals("Morador")) {
+			if(user.getTipoUsu().getId() == 1) {
 				if(acao.equals("visualizar")) {
 					new MensagemDAO().setVisualizada(Integer.parseInt(id));
 					request.setAttribute("mensagem", new MensagemDAO().buscarPorId(Integer.parseInt(id)));
@@ -43,7 +43,7 @@ public class MensagemServlet extends HttpServlet {
 					dispatcher.forward(request, response);
 					return;
 				}
-			}else if(user.getTipoUsu().getNivelAcesso().equals("Síndico")) {
+			}else if(user.getTipoUsu().getId() == 2) {
 				if(acao.equals("visualizar")){
 					new MensagemDAO().setVisualizada(Integer.parseInt(id));
 					request.setAttribute("mensagem", new MensagemDAO().buscarPorId(Integer.parseInt(id)));
@@ -61,13 +61,13 @@ public class MensagemServlet extends HttpServlet {
 		}
 		
 		
-		if(user.getTipoUsu().getNivelAcesso().equals("Morador")) {
+		if(user.getTipoUsu().getId() == 1) {
 			request.setAttribute("qtdMensagem", new MensagemDAO().quantidadeDeMensagens(user));
 			request.setAttribute("mensagens", new MensagemDAO().listarMensagemDoUsuario(user));
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/morador/mensagem-lista.jsp");
 			dispatcher.forward(request, response);
 			return;
-		}else if(user.getTipoUsu().getNivelAcesso().equals("Síndico")) {
+		}else if(user.getTipoUsu().getId() == 2) {
 			request.setAttribute("qtdMensagem", new MensagemDAO().quantidadeDeMensagens(user));
 			request.setAttribute("mensagens", new MensagemDAO().listarMensagemDoUsuario(user));
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/admin/lista-mensagens.jsp");
